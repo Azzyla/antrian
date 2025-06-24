@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\KepuasanModel;
 
 class KepalaController extends BaseController
 {
@@ -13,19 +14,18 @@ class KepalaController extends BaseController
         $this->db = \Config\Database::connect();
     }
 
-    // ==== LOGIN VIEW ====
+    // === LOGIN VIEW ===
     public function login()
     {
-        return view('kepala/login'); // pastikan file ini ada
+        return view('kepala/login');
     }
 
-    // ==== LOGIN POST ====
+    // === LOGIN POST ===
     public function loginPost()
     {
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        // Ganti sesuai tabel kepala (misalnya 'users' dengan role kepala)
         $builder = $this->db->table('users');
         $user = $builder->where('username', $username)
                         ->where('role', 'kepala')
@@ -44,24 +44,65 @@ class KepalaController extends BaseController
         return redirect()->back()->with('error', 'Username atau Password salah');
     }
 
-    // ==== LOGOUT ====
+    // === LOGOUT ===
     public function logout()
     {
         session()->destroy();
         return redirect()->to('/kepala/login');
     }
 
-    // ==== DASHBOARD ====
+    // === DASHBOARD GRAFIK ===
     public function dashboard()
     {
         if (!session()->get('logged_in') || session()->get('role') !== 'kepala') {
             return redirect()->to('/kepala/login');
         }
 
-       return view('kepala/dashboard_kepalaPLT'); // Buat view ini jika belum ada
+        $model = new KepuasanModel();
+
+        $kategoriMap = [
+            1 => 'Sangat Buruk',
+            2 => 'Buruk',
+            3 => 'Cukup',
+            4 => 'Baik',
+            5 => 'Sangat Baik'
+        ];
+
+        // Total Penilaian Keseluruhan
+        $query = $model
+            ->select('penilaian, COUNT(*) as jumlah')
+            ->groupBy('penilaian')
+            ->findAll();
+
+        $penilaian = [];
+        foreach ($query as $row) {
+            $label = $kategoriMap[$row['penilaian']] ?? 'Tidak Diketahui';
+            $penilaian[$label] = (int)$row['jumlah'];
+        }
+
+        // Penilaian per CS
+        $csList = ['CS 1', 'CS 2', 'CS 3'];
+        $penilaianPerCS = [];
+        foreach ($csList as $cs) {
+            $queryCS = $model
+                ->select('penilaian, COUNT(*) as jumlah')
+                ->where('cs', $cs)
+                ->groupBy('penilaian')
+                ->findAll();
+
+            foreach ($queryCS as $row) {
+                $label = $kategoriMap[$row['penilaian']] ?? 'Tidak Diketahui';
+                $penilaianPerCS[$cs][$label] = (int)$row['jumlah'];
+            }
+        }
+
+        return view('kepala/dashboard_kepalaPLT', [
+            'penilaian' => $penilaian,
+            'penilaianPerCS' => $penilaianPerCS
+        ]);
     }
 
-    // ==== REKAP KEPUASAN ====
+    // === REKAP KEPUASAN ===
     public function rekap_kepuasan()
     {
         if (!session()->get('logged_in') || session()->get('role') !== 'kepala') {
@@ -77,7 +118,6 @@ class KepalaController extends BaseController
             try {
                 $startDate = date('Y-m-d', strtotime($start));
                 $endDate   = date('Y-m-d', strtotime($end));
-
                 $builder->where('DATE(created_at) >=', $startDate)
                         ->where('DATE(created_at) <=', $endDate);
             } catch (\Exception $e) {
@@ -88,16 +128,14 @@ class KepalaController extends BaseController
         $builder->orderBy('created_at', 'DESC');
         $query = $builder->get();
 
-        $data = [
+        return view('kepala/rekap_kepuasan', [
             'kepuasan' => $query->getResultArray(),
             'start'    => $start,
             'end'      => $end
-        ];
-
-        return view('kepala/rekap_kepuasan', $data);
+        ]);
     }
 
-    // ==== REKAP ANTRIAN ====
+    // === REKAP ANTRIAN ===
     public function rekap_antrian()
     {
         if (!session()->get('logged_in') || session()->get('role') !== 'kepala') {
@@ -115,7 +153,6 @@ class KepalaController extends BaseController
             try {
                 $startDate = date('Y-m-d', strtotime($start));
                 $endDate   = date('Y-m-d', strtotime($end));
-
                 $builder->where('DATE(antrian.created_at) >=', $startDate)
                         ->where('DATE(antrian.created_at) <=', $endDate);
             } catch (\Exception $e) {
@@ -126,12 +163,10 @@ class KepalaController extends BaseController
         $builder->orderBy('antrian.created_at', 'DESC');
         $query = $builder->get();
 
-        $data = [
+        return view('kepala/rekap_antrian', [
             'laporan' => $query->getResultArray(),
             'start'   => $start,
             'end'     => $end
-        ];
-
-        return view('kepala/rekap_antrian', $data);
+        ]);
     }
 }

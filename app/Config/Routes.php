@@ -31,12 +31,16 @@ $routes->post('save', 'AuthController::save');
 $routes->get('login', 'AuthController::login');
 $routes->post('authenticate', 'AuthController::authenticate');
 $routes->get('logout', 'AuthController::logout');
-$routes->get('/kepala/login', 'KepalaController::login');
-$routes->post('/kepala/login', 'KepalaController::loginPost');
-$routes->get('/kepala/dashboard', 'KepalaController::dashboard');
-$routes->get('/kepala/logout', 'KepalaController::logout');
-$routes->get('/kepala/rekap-antrian', 'KepalaController::rekap_antrian');
-$routes->get('/kepala/rekap-kepuasan', 'KepalaController::rekap_kepuasan');
+
+//tambahkan untuk kepala 
+$routes->get('kepala/login', 'KepalaController::login');
+$routes->post('kepala/login', 'KepalaController::loginPost');
+$routes->get('kepala/logout', 'KepalaController::logout');
+$routes->get('kepala/dashboard', 'KepalaController::dashboard');
+$routes->get('kepala/rekap_antrian', 'KepalaController::rekap_antrian');
+$routes->get('kepala/rekap_kepuasan', 'KepalaController::rekap_kepuasan');
+
+
 
 
 
