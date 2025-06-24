@@ -1,5 +1,5 @@
 @echo off
-cd /d "%~dp0"
+cd /d "%~dp0\audio"
 for %%f in ("nomor antrian *.mp3") do (
     set "oldname=%%~nxf"
     setlocal EnableDelayedExpansion
