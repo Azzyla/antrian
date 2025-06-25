@@ -9,51 +9,109 @@
   <meta http-equiv="Expires" content="0" />
   <title>Panggil Antrian</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script>
-    function panggil(button, jenis = 'panggil') {
-      const row = button.closest("tr");
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 
-      const kategori = row.querySelector("td:nth-child(2)").innerText.trim().toLowerCase(); // mahasiswa, dosen, umum
-      const nomor = row.querySelector("td:nth-child(3)").innerText.trim(); // Contoh: A03
+<script>
+  let audioQueue = [];        // Antrian audio
+  let isPlaying = false;      // Status apakah sedang memutar audio
+  const tombolAktif = new Map(); // Menyimpan tombol asli per ID
+  let pendingRedirects = [];  // Simpan semua href untuk redirect di akhir
 
-      let loketNumber = '';
-      switch (kategori) {
-        case 'mahasiswa':
-          loketNumber = '1';
-          break;
-        case 'dosen':
-          loketNumber = '2';
-          break;
-        case 'umum':
-          loketNumber = '3';
-          break;
-        default:
-          console.error("Kategori tidak dikenali:", kategori);
-          return;
-      }
+  function panggil(button, jenis = 'panggil') {
+    const row = button.closest("tr");
+    const kategori = row.querySelector("td:nth-child(2)").innerText.trim().toLowerCase();
+    const nomor = row.querySelector("td:nth-child(3)").innerText.trim();
+    const id = getIdFromHref(button.href);
 
-      let audioPath = '';
-      if (jenis === 'panggil') {
-        audioPath = `/sounds/nomor_antrian_${nomor}_menuju_loket_${loketNumber}.mp3`;
-      } else if (jenis === 'ulang') {
-        audioPath = `/sounds/nomor_antrian_${nomor}_menuju_loket_${loketNumber}_dipanggil_ulang.mp3`;
-      } else {
-        console.error("Jenis tidak dikenali:", jenis);
+    let loketNumber = '';
+    switch (kategori) {
+      case 'mahasiswa': loketNumber = '1'; break;
+      case 'dosen': loketNumber = '2'; break;
+      case 'umum': loketNumber = '3'; break;
+      default:
+        console.error("Kategori tidak dikenali:", kategori);
         return;
+    }
+
+    let audioPath = '';
+    if (jenis === 'panggil') {
+      audioPath = `/sounds/nomor_antrian_${nomor}_menuju_loket_${loketNumber}.mp3`;
+    } else if (jenis === 'ulang') {
+      audioPath = `/sounds/nomor_antrian_${nomor}_menuju_loket_${loketNumber}_dipanggil_ulang.mp3`;
+    }
+
+    if (!tombolAktif.has(id)) {
+      tombolAktif.set(id, button.innerHTML);
+    }
+
+    button.innerHTML = '<i class="bi bi-arrow-repeat spinner-border spinner-border-sm"></i> Menunggu...';
+    button.disabled = true;
+
+    audioQueue.push({
+      id: id,
+      path: audioPath,
+      href: button.getAttribute('href'),
+      button: button
+    });
+
+    if (!isPlaying) {
+      playNextAudio();
+    }
+  }
+
+  function playNextAudio() {
+    if (audioQueue.length === 0) {
+      isPlaying = false;
+
+      // 🔁 Setelah semua audio selesai diputar, lakukan redirect jika perlu
+      if (pendingRedirects.length > 0) {
+        const lastHref = pendingRedirects.pop(); // ambil terakhir
+        window.location.href = lastHref;
       }
 
-      console.log("Memutar:", audioPath); // Debug
-      const audio = new Audio(audioPath);
-      audio.volume = 1.0; // pastikan volume maksimal
-      audio.play()
-        .then(() => console.log("Audio diputar"))
-        .catch(err => console.error("Gagal memutar audio:", err));
-      audio.onended = () => {
-        window.location.href = button.getAttribute('href');
-      };
-
+      return;
     }
-  </script>
+
+    isPlaying = true;
+    const next = audioQueue.shift();
+    const audio = new Audio(next.path);
+    audio.volume = 1.0;
+
+    next.button.innerHTML = '<i class="bi bi-volume-up"></i> Memutar...';
+    console.log("Memutar:", next.path);
+
+    // Simpan href redirect-nya untuk nanti
+    pendingRedirects.push(next.href);
+
+    audio.play()
+      .then(() => console.log("Audio diputar"))
+      .catch(err => {
+        console.error("Gagal memutar audio:", err);
+        resetTombol(next.id, next.button);
+        isPlaying = false;
+        playNextAudio(); // Lanjut walau error
+      });
+
+    audio.onended = () => {
+      resetTombol(next.id, next.button);
+      isPlaying = false;
+      playNextAudio(); // Lanjut ke berikutnya
+    };
+  }
+
+  function resetTombol(id, button) {
+    if (tombolAktif.has(id)) {
+      button.innerHTML = tombolAktif.get(id);
+      button.disabled = false;
+      tombolAktif.delete(id);
+    }
+  }
+
+  function getIdFromHref(href) {
+    const parts = href.split('/');
+    return parts[parts.length - 1];
+  }
+</script>
 
 
 
