@@ -4,14 +4,18 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\KepuasanModel;
+use App\Models\AntrianModel;
+use Config\Database;
 
 class KepalaController extends BaseController
 {
     protected $db;
+    protected $antrianModel;
 
     public function __construct()
     {
-        $this->db = \Config\Database::connect();
+        $this->db = Database::connect();
+        $this->antrianModel = new AntrianModel();
     }
 
     // === LOGIN VIEW ===
@@ -51,7 +55,7 @@ class KepalaController extends BaseController
         return redirect()->to('/kepala/login');
     }
 
-    // === DASHBOARD GRAFIK ===
+    // === DASHBOARD: GRAFIK KEPUASAN ===
     public function dashboard()
     {
         if (!session()->get('logged_in') || session()->get('role') !== 'kepala') {
@@ -68,7 +72,6 @@ class KepalaController extends BaseController
             5 => 'Sangat Baik'
         ];
 
-        // Total Penilaian Keseluruhan
         $query = $model
             ->select('penilaian, COUNT(*) as jumlah')
             ->groupBy('penilaian')
@@ -80,7 +83,6 @@ class KepalaController extends BaseController
             $penilaian[$label] = (int)$row['jumlah'];
         }
 
-        // Penilaian per CS
         $csList = ['CS 1', 'CS 2', 'CS 3'];
         $penilaianPerCS = [];
         foreach ($csList as $cs) {
@@ -97,12 +99,12 @@ class KepalaController extends BaseController
         }
 
         return view('kepala/dashboard_kepalaPLT', [
-            'penilaian' => $penilaian,
+            'penilaian'      => $penilaian,
             'penilaianPerCS' => $penilaianPerCS
         ]);
     }
 
-    // === REKAP KEPUASAN ===
+    // === REKAP KEPUASAN LAYANAN ===
     public function rekap_kepuasan()
     {
         if (!session()->get('logged_in') || session()->get('role') !== 'kepala') {
@@ -142,11 +144,12 @@ class KepalaController extends BaseController
             return redirect()->to('/kepala/login');
         }
 
-        $start = $this->request->getGet('start');
-        $end   = $this->request->getGet('end');
+        $start     = $this->request->getGet('start');
+        $end       = $this->request->getGet('end');
+        $perPage = (int)($this->request->getGet('perPage') ?? 10);
+        $page      = $this->request->getVar('page') ?? 1;
 
-        $builder = $this->db->table('antrian')
-            ->select('antrian.*, users.username AS nama_cs')
+        $builder = $this->antrianModel->select('antrian.*, users.username AS nama_cs')
             ->join('users', 'users.id = antrian.id_cs_plt', 'left');
 
         if ($start && $end) {
@@ -160,13 +163,17 @@ class KepalaController extends BaseController
             }
         }
 
-        $builder->orderBy('antrian.created_at', 'DESC');
-        $query = $builder->get();
+        $laporan = $builder->orderBy('antrian.created_at', 'DESC')
+                           ->paginate($perPage, 'default', $page);
 
         return view('kepala/rekap_antrian', [
-            'laporan' => $query->getResultArray(),
-            'start'   => $start,
-            'end'     => $end
+            'laporan'      => $laporan,
+            'pager'        => $this->antrianModel->pager,
+            'perPage'      => $perPage,
+            'currentPage'  => (int)$page,
+            'totalData'        => $this->antrianModel->countAllResults(false),
+            'start'        => $start,
+            'end'          => $end
         ]);
     }
 }

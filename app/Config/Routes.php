@@ -32,21 +32,18 @@ $routes->get('login', 'AuthController::login');
 $routes->post('authenticate', 'AuthController::authenticate');
 $routes->get('logout', 'AuthController::logout');
 
-//tambahkan untuk kepala 
+// === ROUTE UNTUK KEPALA PLT ===
 $routes->get('kepala/login', 'KepalaController::login');
 $routes->post('kepala/login', 'KepalaController::loginPost');
 $routes->get('kepala/logout', 'KepalaController::logout');
 $routes->get('kepala/dashboard', 'KepalaController::dashboard');
+
+// === REKAP ANTRIAN ===
+$routes->get('kepala/rekap-antrian', 'KepalaController::rekap_antrian');
 $routes->get('kepala/rekap_antrian', 'KepalaController::rekap_antrian');
+// === REKAP KEPUASAN ===
+$routes->get('kepala/rekap-kepuasan', 'KepalaController::rekap_kepuasan');
 $routes->get('kepala/rekap_kepuasan', 'KepalaController::rekap_kepuasan');
-
-
-
-
-
-// Tambahan menu dashboard:
-$routes->get('/kepala/rekap-antrian', 'KepalaController::rekapAntrian');
-$routes->get('/kepala/rekap-kepuasan', 'KepalaController::rekapKepuasan');
 
 
 // Gunakan filter auth pada dashboard
