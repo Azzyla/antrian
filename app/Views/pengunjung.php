@@ -79,7 +79,7 @@
 </head>
 <body>
 <div class="container">
-    <h3 class="text-center mb-4">Sistem Antrian Pusat Layanan Terpadu PLT</h3>
+    <h3 class="text-center mb-4">Sistem Antrian PLT </p><p>(Pusat Layanan Terpadu)</h3>
 
     <div class="text-center mb-4">
         <img src="/logo_itp.png" alt="Logo" width="100">
