@@ -86,12 +86,26 @@
                     <td><?= esc($row['kategori']) ?></td>
                     <td><?= esc($row['nomor_antrian'] ?? $row['id']) ?></td>
                     <td><?= esc($row['status'] ?? '-') ?></td>
-                    <td><?= esc($row['nama_cs'] ?? '-') ?></td>
+                    <td>
+                        <?php
+                        if (!empty($row['waktu_mulai'])) {
+                            $kategori = strtolower($row['kategori']);
+                            echo match($kategori) {
+                                'mahasiswa' => 'CS 1',
+                                'umum' => 'CS 2',
+                                'dosen' => 'CS 3',
+                                default => 'CS -'
+                            };
+                        } else {
+                            echo '-';
+                        }
+                        ?>
+                    </td>
                     <td><?= $row['waktu_mulai'] ? date('H:i', strtotime($row['waktu_mulai'])) : '-' ?></td>
                     <td><?= $row['waktu_selesai'] ? date('H:i', strtotime($row['waktu_selesai'])) : '-' ?></td>
                     <td>
                         <?php
-                        if ($row['waktu_mulai'] && $row['waktu_selesai']) {
+                        if (!empty($row['waktu_mulai']) && !empty($row['waktu_selesai'])) {
                             $mulai = new \DateTime($row['waktu_mulai']);
                             $selesai = new \DateTime($row['waktu_selesai']);
                             $durasi = $selesai->getTimestamp() - $mulai->getTimestamp();
@@ -111,7 +125,7 @@
     <div class="pagination">
         <?php
         $totalPages = ceil($totalData / $perPage);
-        for ($i = 1; $i <= $totalPages; $i++): 
+        for ($i = 1; $i <= $totalPages; $i++):
             $queryStr = http_build_query([
                 'start' => $start,
                 'end' => $end,
