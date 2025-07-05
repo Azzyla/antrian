@@ -39,7 +39,7 @@
 
       <div class="row mt-5">
         <!-- Grafik Kepuasan -->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-4 mb-4">
           <div class="card shadow">
             <div class="card-header bg-primary text-white">Grafik Kepuasan Layanan</div>
             <div class="card-body">
@@ -49,7 +49,7 @@
         </div>
 
         <!-- Grafik per CS -->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-4 mb-4">
           <div class="card shadow">
             <div class="card-header bg-secondary text-white">Grafik Penilaian per Jenis CS</div>
             <div class="card-body">
@@ -57,11 +57,21 @@
             </div>
           </div>
         </div>
+
+        <!-- Grafik CS Terbaik -->
+        <div class="col-md-4 mb-4">
+          <div class="card shadow">
+            <div class="card-header bg-success text-white">Grafik CS Terbaik per Bulan</div>
+            <div class="card-body">
+              <canvas id="grafikCSTerbaik" height="200"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   </div>
 
-  <!-- Chart JS -->
+  <!-- Script Chart -->
   <script>
     const kategoriLabels = ['Sangat Buruk', 'Buruk', 'Cukup', 'Baik', 'Sangat Baik'];
     const kategoriColors = ['#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', '#3498db'];
@@ -82,6 +92,9 @@
       data: csLabels.map(cs => dataPerCS[cs]?.[kategori] ?? 0),
       backgroundColor: kategoriColors[idx]
     }));
+
+    const csTerbaikLabels = <?= json_encode($csTerbaikBulanLabels ?? []) ?>;
+    const csTerbaikValues = <?= json_encode($csTerbaikBulanValues ?? []) ?>;
 
     new Chart(document.getElementById('grafikKepuasan'), {
       type: 'bar',
@@ -129,8 +142,37 @@
         }
       }
     });
-  </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    new Chart(document.getElementById('grafikCSTerbaik'), {
+      type: 'bar',
+      data: {
+        labels: csTerbaikLabels, // bulan: ['Juni', 'Juli', ...]
+        datasets: [{
+          label: 'CS Terbaik',
+          data: csTerbaikValues, // ['CS 2', 'CS 3', ...]
+          backgroundColor: '#8e44ad'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'CS Terbaik per Bulan'
+          },
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0,
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+  </script>
 </body>
 </html>

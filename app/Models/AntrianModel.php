@@ -13,18 +13,17 @@ class AntrianModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
-
-protected $allowedFields = [
-    'kategori',
-    'tujuan_layanan',
-    'waktu_antrian',
-    'nomor_antrian',
-    'status',
-    'waktu_mulai',
-    'waktu_selesai',
-    'created_at',
-];
-
+    protected $allowedFields = [
+        'kategori',
+        'tujuan_layanan',
+        'waktu_antrian',
+        'nomor_antrian',
+        'status',
+        'waktu_mulai',
+        'waktu_selesai',
+        'created_at',
+        'id_pengunjung', // ✅ Ditambahkan agar bisa menyimpan relasi ke tabel pengunjung
+    ];
 
     // ✅ Hitung jumlah antrian HARI INI
     public function getJumlahAntrianHariIni()

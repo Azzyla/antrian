@@ -1,0 +1,632 @@
+DEBUG - 2025-07-03 02:07:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:07:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:07:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:07:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:07:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:08:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:08:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:08:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:08:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:08:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:09:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:10:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:14:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:14:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:14:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:15:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:15:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:15:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:15:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 02:15:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 04:14:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 04:14:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 04:14:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 04:14:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 04:14:38 --> ErrorException: Undefined variable $csTerbaik
+[Method: GET, Route: kepala/dashboard]
+in APPPATH\Views\kepala\dashboard_kepalaPLT.php on line 148.
+ 1 APPPATH\Views\kepala\dashboard_kepalaPLT.php(148): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $csTerbaik', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\dashboard_kepalaPLT.php', 148)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\dashboard_kepalaPLT.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/dashboard_kepalaPLT', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(117): view('kepala/dashboard_kepalaPLT', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 04:15:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 04:15:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 04:19:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:23:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:24:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:24:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:27:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:30:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:31:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:34:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:38:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:40:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:42:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:51:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 06:51:49 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(203): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 06:54:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 06:54:23 --> ErrorException: Undefined array key "nomor"
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 57.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(57): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nomor"', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 57)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(203): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 06:55:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:55:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:55:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:55:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:56:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:56:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:56:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 06:56:25 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(203): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 06:58:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:58:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:58:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:58:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:58:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:58:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 06:58:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 06:58:32 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(203): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:00:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:00:30 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(220): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:01:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:02:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:02:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:02:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:02:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:02:14 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(220): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+CRITICAL - 2025-07-03 07:04:07 --> ParseError: Unclosed '{' on line 11
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Controllers\KepalaController.php on line 229.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\laragon\\www\\antrian\\app\\Controllers\\KepalaController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\KepalaController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\KepalaController')
+ 4 SYSTEMPATH\CodeIgniter.php(885): class_exists('\\App\\Controllers\\KepalaController', true)
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+ERROR - 2025-07-03 07:04:17 --> mysqli_sql_exception: Table 'antrian.kepuasan' doesn't exist in C:\laragon\www\antrian\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\antrian\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT kategori...', 0)
+#1 C:\laragon\www\antrian\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT kategori...')
+#2 C:\laragon\www\antrian\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT kategori...')
+#3 C:\laragon\www\antrian\app\Controllers\KepalaController.php(188): CodeIgniter\Database\BaseConnection->query('SELECT kategori...')
+#4 C:\laragon\www\antrian\system\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+#5 C:\laragon\www\antrian\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+#6 C:\laragon\www\antrian\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\laragon\www\antrian\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#8 C:\laragon\www\antrian\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\laragon\www\antrian\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 C:\laragon\www\antrian\system\rewrite.php(44): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2025-07-03 07:04:17 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'antrian.kepuasan' doesn't exist
+[Method: GET, Route: kepala/rekap_antrian]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 APPPATH\Controllers\KepalaController.php(188): CodeIgniter\Database\BaseConnection->query('SELECT kategori, COUNT(*) as total FROM kepuasan GROUP BY kategori')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+CRITICAL - 2025-07-03 07:04:17 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'antrian.kepuasan' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT kategori, COUNT(*) as total FROM kepuasan GROUP BY kategori')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT kategori, COUNT(*) as total FROM kepuasan GROUP BY kategori')
+ 3 APPPATH\Controllers\KepalaController.php(188): CodeIgniter\Database\BaseConnection->query('SELECT kategori, COUNT(*) as total FROM kepuasan GROUP BY kategori')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+CRITICAL - 2025-07-03 07:04:17 --> [Caused by] mysqli_sql_exception: Table 'antrian.kepuasan' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT kategori, COUNT(*) as total FROM kepuasan GROUP BY kategori', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT kategori, COUNT(*) as total FROM kepuasan GROUP BY kategori')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT kategori, COUNT(*) as total FROM kepuasan GROUP BY kategori')
+ 4 APPPATH\Controllers\KepalaController.php(188): CodeIgniter\Database\BaseConnection->query('SELECT kategori, COUNT(*) as total FROM kepuasan GROUP BY kategori')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:04:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:04:37 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(220): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:05:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:05:02 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(220): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:05:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:05:14 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(197): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:05:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:05:15 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(197): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:05:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:05:16 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(197): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:05:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:05:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:05:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:05:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:05:41 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(197): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:05:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:05:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:05:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:05:54 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(197): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:07:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:07:30 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:07:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:07:31 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:07:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:07:32 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:07:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:07:33 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:08:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:08:27 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:08:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:08:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:08:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:08:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:08:40 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:08:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:08:59 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:10:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:10:38 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:10:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:10:39 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:12:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:12:00 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:13:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:13:39 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:13:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:13:40 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 90.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 90)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:14:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:14:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:14:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:14:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:14:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:14:36 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 77.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(77): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 77)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:20:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:20:39 --> ErrorException: Undefined variable $penilaianPerCS
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 77.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(77): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $penilaianPerCS', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 77)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:23:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:23:09 --> ErrorException: Undefined variable $antrian
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 47.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(47): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $antrian', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 47)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:23:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-03 07:23:10 --> ErrorException: Undefined variable $antrian
+[Method: GET, Route: kepala/rekap_antrian]
+in APPPATH\Views\kepala\rekap_antrian.php on line 47.
+ 1 APPPATH\Views\kepala\rekap_antrian.php(47): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $antrian', 'C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php', 47)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\kepala\\rekap_antrian.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('kepala/rekap_antrian', [], true)
+ 5 APPPATH\Controllers\KepalaController.php(176): view('kepala/rekap_antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\KepalaController->rekap_antrian()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\KepalaController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-03 07:23:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:23:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:23:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:25:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:25:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:25:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:26:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:26:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:26:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:26:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:26:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:26:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:26:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:26:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:27:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:27:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:29:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:29:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:29:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:29:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:29:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:29:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:30:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:30:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-03 07:30:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

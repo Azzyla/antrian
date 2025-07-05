@@ -32,8 +32,8 @@
     </style>
 </head>
 <body>
-<div class="container mt-4">
-    <h2 class="mb-4 text-success">Rekap Antrian</h2>
+<div class="container mt-5">
+    <h2 class="mb-4 text-primary fw-bold">Rekap Antrian</h2>
     <a href="<?= base_url('/kepala/dashboard') ?>" class="btn btn-secondary mb-3">Kembali ke Dashboard</a>
 
     <!-- Filter Tanggal & Per Page -->
@@ -67,6 +67,7 @@
             <th>No</th>
             <th>Tanggal</th>
             <th>Kategori</th>
+            <th>NIM</th>
             <th>Nomor Antrian</th>
             <th>Status</th>
             <th>CS</th>
@@ -77,35 +78,30 @@
         </thead>
         <tbody>
         <?php if (count($laporan) === 0): ?>
-            <tr><td colspan="9" class="text-center">Tidak ada data.</td></tr>
+            <tr><td colspan="10" class="text-center">Tidak ada data.</td></tr>
         <?php else: ?>
             <?php $no = ($currentPage - 1) * $perPage + 1; foreach ($laporan as $row): ?>
                 <tr>
                     <td><?= $no++ ?></td>
                     <td><?= date('d-m-Y', strtotime($row['created_at'])) ?></td>
                     <td><?= esc($row['kategori']) ?></td>
-                    <td><?= esc($row['nomor_antrian'] ?? $row['id']) ?></td>
-                    <td><?= esc($row['status'] ?? '-') ?></td>
                     <td>
                         <?php
-                        if (!empty($row['waktu_mulai'])) {
-                            $kategori = strtolower($row['kategori']);
-                            echo match($kategori) {
-                                'mahasiswa' => 'CS 1',
-                                'umum' => 'CS 2',
-                                'dosen' => 'CS 3',
-                                default => 'CS -'
-                            };
+                        if ($row['kategori'] === 'mahasiswa') {
+                            echo esc($row['nim'] ?? '-');
                         } else {
                             echo '-';
                         }
                         ?>
                     </td>
+                    <td><?= esc($row['nomor_antrian'] ?? $row['id']) ?></td>
+                    <td><?= esc($row['status'] ?? '-') ?></td>
+                    <td><?= esc($row['nama_cs'] ?? '-') ?></td>
                     <td><?= $row['waktu_mulai'] ? date('H:i', strtotime($row['waktu_mulai'])) : '-' ?></td>
                     <td><?= $row['waktu_selesai'] ? date('H:i', strtotime($row['waktu_selesai'])) : '-' ?></td>
                     <td>
                         <?php
-                        if (!empty($row['waktu_mulai']) && !empty($row['waktu_selesai'])) {
+                        if ($row['waktu_mulai'] && $row['waktu_selesai']) {
                             $mulai = new \DateTime($row['waktu_mulai']);
                             $selesai = new \DateTime($row['waktu_selesai']);
                             $durasi = $selesai->getTimestamp() - $mulai->getTimestamp();
@@ -125,7 +121,7 @@
     <div class="pagination">
         <?php
         $totalPages = ceil($totalData / $perPage);
-        for ($i = 1; $i <= $totalPages; $i++):
+        for ($i = 1; $i <= $totalPages; $i++): 
             $queryStr = http_build_query([
                 'start' => $start,
                 'end' => $end,
