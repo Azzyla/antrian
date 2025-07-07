@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sistem Antrian PLT</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <style>
     body {
       background-color: #3399ff;
@@ -73,17 +72,33 @@
 
   <div class="window">
     <h5>Pilihan Layanan</h5>
+
     <form method="post" action="/layanan/simpan">
       <div class="mb-4">
-        <select class="form-select" name="layanan" id="layananSelect" onchange="cekLainnya()">
+        <select class="form-select" name="layanan" id="layananSelect" onchange="cekLainnya()" required>
           <option value="" selected disabled>Pilih layanan</option>
-          <option value="kp_ta">Mengambil berita acara KP/TA</option>
-          <option value="ijazah">Pengambilan ijazah</option>
-          <option value="legalisir">Legalisir dokumen</option>
-          <option value="lainnya">Lainnya</option>
+
+          <!-- Mahasiswa -->
+          <option value="registrasi" data-kategori="mahasiswa">Registrasi (KRS)</option>
+          <option value="magang" data-kategori="mahasiswa">Magang / KP / PL</option>
+          <option value="skripsi" data-kategori="mahasiswa">TA / PA / Thesis</option>
+          <option value="wisuda" data-kategori="mahasiswa">Wisuda</option>
+          <option value="pembayaran" data-kategori="mahasiswa">Pembayaran Uang Kuliah</option>
+
+          <!-- Dosen -->
+          <option value="perkuliahan" data-kategori="dosen">Perkuliahan</option>
+          <option value="kepegawaian" data-kategori="dosen">Kepegawaian</option>
+          <option value="keuangan" data-kategori="dosen">Keuangan</option>
+
+          <!-- Umum -->
+          <option value="pmb" data-kategori="umum">Penerimaan Mahasiswa Baru</option>
+
+          <!-- Lainnya -->
+          <option value="lainnya" data-kategori="mahasiswa dosen umum">Lainnya</option>
         </select>
       </div>
 
+      <!-- Input jika pilih "Lainnya" -->
       <div class="mb-4" id="lainnyaInputContainer" style="display: none;">
         <input type="text" class="form-control" name="layanan_lain" placeholder="Masukkan layanan lainnya...">
       </div>
@@ -95,11 +110,36 @@
   </div>
 
   <script>
-    function cekLainnya() {
-      const layanan = document.getElementById('layananSelect').value;
-      const lainnyaInput = document.getElementById('lainnyaInputContainer');
-      lainnyaInput.style.display = (layanan === 'lainnya') ? 'block' : 'none';
+    const kategori = "<?= strtolower(session('kategoriAktif') ?? '') ?>"; // ✅ Ambil dari session yang benar
+
+    function filterLayananByKategori() {
+      const layananSelect = document.getElementById("layananSelect");
+      const options = layananSelect.getElementsByTagName("option");
+
+      for (let i = 0; i < options.length; i++) {
+        const opt = options[i];
+        const dataKategori = opt.getAttribute("data-kategori");
+
+        if (!dataKategori || opt.value === "") {
+          opt.style.display = ""; // Pilihan kosong tetap ditampilkan
+        } else if (dataKategori.includes(kategori)) {
+          opt.style.display = ""; // Tampilkan jika kategori cocok
+        } else {
+          opt.style.display = "none"; // Sembunyikan jika tidak cocok
+        }
+      }
     }
+
+    function cekLainnya() {
+      const selected = document.getElementById("layananSelect").value;
+      const inputLainnya = document.getElementById("lainnyaInputContainer");
+      inputLainnya.style.display = (selected === "lainnya") ? "block" : "none";
+    }
+
+    window.onload = function () {
+      filterLayananByKategori();
+      cekLainnya(); // untuk antisipasi reload
+    };
   </script>
 
 </body>

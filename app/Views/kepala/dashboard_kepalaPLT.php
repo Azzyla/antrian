@@ -72,107 +72,106 @@
   </div>
 
   <!-- Script Chart -->
-  <script>
-    const kategoriLabels = ['Sangat Buruk', 'Buruk', 'Cukup', 'Baik', 'Sangat Baik'];
-    const kategoriColors = ['#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', '#3498db'];
-    const csLabels = ['CS 1', 'CS 2', 'CS 3'];
+<script>
+  const kategoriLabels = ['Sangat Buruk', 'Buruk', 'Cukup', 'Baik', 'Sangat Baik'];
+  const kategoriColors = ['#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', '#3498db'];
+  const csLabels = ['CS 1', 'CS 2', 'CS 3'];
 
-    const dataKepuasan = <?= json_encode([
-      $penilaian['Sangat Buruk'] ?? 0,
-      $penilaian['Buruk'] ?? 0,
-      $penilaian['Cukup'] ?? 0,
-      $penilaian['Baik'] ?? 0,
-      $penilaian['Sangat Baik'] ?? 0
-    ]) ?>;
+  const dataKepuasan = <?= json_encode([
+    $penilaian['Sangat Buruk'] ?? 0,
+    $penilaian['Buruk'] ?? 0,
+    $penilaian['Cukup'] ?? 0,
+    $penilaian['Baik'] ?? 0,
+    $penilaian['Sangat Baik'] ?? 0
+  ]) ?>;
 
-    const dataPerCS = <?= json_encode($penilaianPerCS) ?>;
+  const dataPerCS = <?= json_encode($penilaianPerCS) ?>;
 
-    const datasetsPerCS = kategoriLabels.map((kategori, idx) => ({
-      label: kategori,
-      data: csLabels.map(cs => dataPerCS[cs]?.[kategori] ?? 0),
-      backgroundColor: kategoriColors[idx]
-    }));
+  const datasetsPerCS = kategoriLabels.map((kategori, idx) => ({
+    label: kategori,
+    data: csLabels.map(cs => dataPerCS[cs]?.[kategori] ?? 0),
+    backgroundColor: kategoriColors[idx]
+  }));
 
-    const csTerbaikLabels = <?= json_encode($csTerbaikBulanLabels ?? []) ?>;
-    const csTerbaikValues = <?= json_encode($csTerbaikBulanValues ?? []) ?>;
+  const csTerbaikLabels = <?= json_encode($grafikBerjalanLabels ?? []) ?>;
+  const grafikBerjalanValues = <?= json_encode($grafikBerjalanValues ?? []) ?>;
 
-    new Chart(document.getElementById('grafikKepuasan'), {
-      type: 'bar',
-      data: {
-        labels: kategoriLabels,
-        datasets: [{
-          label: 'Jumlah Penilaian',
-          data: dataKepuasan,
-          backgroundColor: kategoriColors,
-          borderWidth: 1
-        }]
+  const datasetsCSBerjalan = Object.keys(grafikBerjalanValues).map(cs => ({
+    label: cs,
+    data: grafikBerjalanValues[cs],
+    backgroundColor:
+      cs === 'CS 1' ? '#3498db' :
+      cs === 'CS 2' ? '#2ecc71' : '#e67e22'
+  }));
+
+  new Chart(document.getElementById('grafikKepuasan'), {
+    type: 'bar',
+    data: {
+      labels: kategoriLabels,
+      datasets: [{
+        label: 'Jumlah Penilaian',
+        data: dataKepuasan,
+        backgroundColor: kategoriColors,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        title: { display: true, text: 'Grafik Kepuasan Layanan' }
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false },
-          title: { display: true, text: 'Grafik Kepuasan Layanan' }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: { precision: 0 }
-          }
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { precision: 0 }
         }
       }
-    });
+    }
+  });
 
-    new Chart(document.getElementById('grafikPerCS'), {
-      type: 'bar',
-      data: {
-        labels: csLabels,
-        datasets: datasetsPerCS
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Jumlah Penilaian per Jenis CS dan Kategori'
-          }
-        },
-        scales: {
-          x: { stacked: true },
-          y: { stacked: true, beginAtZero: true, ticks: { precision: 0 } }
+  new Chart(document.getElementById('grafikPerCS'), {
+    type: 'bar',
+    data: {
+      labels: csLabels,
+      datasets: datasetsPerCS
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Jumlah Penilaian per Jenis CS dan Kategori'
         }
+      },
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true, beginAtZero: true, ticks: { precision: 0 } }
       }
-    });
+    }
+  });
 
-    new Chart(document.getElementById('grafikCSTerbaik'), {
-      type: 'bar',
-      data: {
-        labels: csTerbaikLabels, // bulan: ['Juni', 'Juli', ...]
-        datasets: [{
-          label: 'CS Terbaik',
-          data: csTerbaikValues, // ['CS 2', 'CS 3', ...]
-          backgroundColor: '#8e44ad'
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          title: {
-            display: true,
-            text: 'CS Terbaik per Bulan'
-          },
-          legend: { display: false }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              precision: 0,
-              stepSize: 1
-            }
-          }
+  new Chart(document.getElementById('grafikCSTerbaik'), {
+    type: 'bar',
+    data: {
+      labels: csTerbaikLabels,
+      datasets: datasetsCSBerjalan
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Jumlah Nilai 5 (Sangat Baik) per CS tiap Bulan'
         }
+      },
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true, beginAtZero: true, ticks: { precision: 0 } }
       }
-    });
-  </script>
+    }
+  });
+</script>
+
 </body>
 </html>

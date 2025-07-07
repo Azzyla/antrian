@@ -119,6 +119,20 @@
     <div class="container my-5">
         <h4 class="text-center mb-4">Ambil Nomor Antrian</h4>
 
+        <?php
+        $aktif = session('kategoriAktif');
+        $diambil = session()->getFlashdata('kategoriDiambil');
+
+        function tombolClass($kategori, $aktif, $diambil) {
+            if ($diambil === $kategori || $aktif !== $kategori) return 'disabled';
+            return '';
+        }
+
+        function tombolText($kategori, $diambil) {
+            return ($diambil === $kategori) ? 'Sudah Diambil' : 'Ambil Nomor';
+        }
+        ?>
+
         <div class="d-flex justify-content-center gap-4 flex-wrap">
 
             <!-- Mahasiswa -->
@@ -126,10 +140,11 @@
                 <h5>Mahasiswa</h5>
                 <div class="icon-user">👤</div>
                 <div class="jumlah"><?= esc($antrian['mahasiswa']) ?></div>
-                <a href="<?= base_url('antrian/ambil/mahasiswa') ?>" 
-                   class="btn btn-white <?= session('kategoriAktif') !== 'mahasiswa' ? 'disabled' : '' ?>">
-                    Ambil Nomor
-                </a>
+                <button id="btn-mahasiswa"
+                        onclick="handleAmbilNomor('mahasiswa')"
+                        class="btn btn-white <?= tombolClass('mahasiswa', $aktif, $diambil) ?>">
+                    <?= tombolText('mahasiswa', $diambil) ?>
+                </button>
             </div>
 
             <!-- Umum -->
@@ -137,10 +152,11 @@
                 <h5>Umum</h5>
                 <div class="icon-user">👥</div>
                 <div class="jumlah"><?= esc($antrian['umum']) ?></div>
-                <a href="<?= base_url('antrian/ambil/umum') ?>" 
-                   class="btn btn-white <?= session('kategoriAktif') !== 'umum' ? 'disabled' : '' ?>">
-                    Ambil Nomor
-                </a>
+                <button id="btn-umum"
+                        onclick="handleAmbilNomor('umum')"
+                        class="btn btn-white <?= tombolClass('umum', $aktif, $diambil) ?>">
+                    <?= tombolText('umum', $diambil) ?>
+                </button>
             </div>
 
             <!-- Dosen/Karyawan -->
@@ -148,10 +164,11 @@
                 <h5>Dosen/Karyawan</h5>
                 <div class="icon-user">👨‍🏫</div>
                 <div class="jumlah"><?= esc($antrian['dosen']) ?></div>
-                <a href="<?= base_url('antrian/ambil/dosen') ?>" 
-                   class="btn btn-white <?= session('kategoriAktif') !== 'dosen' ? 'disabled' : '' ?>">
-                    Ambil Nomor
-                </a>
+                <button id="btn-dosen"
+                        onclick="handleAmbilNomor('dosen')"
+                        class="btn btn-white <?= tombolClass('dosen', $aktif, $diambil) ?>">
+                    <?= tombolText('dosen', $diambil) ?>
+                </button>
             </div>
 
         </div>
@@ -166,6 +183,20 @@
             <div id="messageToast" class="<?= $toastClass ?>"><?= esc($message) ?></div>
         <?php endif; ?>
     </div>
+
+    <script>
+        function handleAmbilNomor(kategori) {
+            const btn = document.getElementById('btn-' + kategori);
+            btn.disabled = true;
+            btn.classList.add('disabled');
+            btn.innerText = 'Sedang diproses...';
+
+            // Redirect ke ambil nomor
+            setTimeout(() => {
+                window.location.href = "<?= base_url('antrian/ambil/') ?>" + kategori;
+            }, 500);
+        }
+    </script>
 
 </body>
 </html>

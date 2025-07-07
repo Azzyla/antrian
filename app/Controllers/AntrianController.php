@@ -11,22 +11,24 @@ class AntrianController extends BaseController
         $model = new AntrianModel();
         $today = date('Y-m-d');
 
-        // Hitung jumlah antrian per kategori HARI INI
+        // Hitung jumlah antrian per kategori HARI INI (gunakan clone() untuk mencegah overwrite)
         $data['antrian'] = [
-            'mahasiswa' => $model->where('kategori', 'mahasiswa')
-                                 ->where('DATE(waktu_antrian)', $today)
-                                 ->countAllResults(),
+            'mahasiswa' => (clone $model)
+                ->where('kategori', 'mahasiswa')
+                ->where('DATE(waktu_antrian)', $today)
+                ->countAllResults(),
 
-            'umum' => $model->where('kategori', 'umum')
-                            ->where('DATE(waktu_antrian)', $today)
-                            ->countAllResults(),
+            'umum' => (clone $model)
+                ->where('kategori', 'umum')
+                ->where('DATE(waktu_antrian)', $today)
+                ->countAllResults(),
 
-            'dosen' => $model->where('kategori', 'dosen')
-                             ->where('DATE(waktu_antrian)', $today)
-                             ->countAllResults(),
+            'dosen' => (clone $model)
+                ->where('kategori', 'dosen')
+                ->where('DATE(waktu_antrian)', $today)
+                ->countAllResults(),
         ];
 
-        // Ambil kategori dari session
         $data['kategoriAktif'] = session()->get('kategoriAktif');
 
         return view('antrian', $data);
@@ -51,9 +53,10 @@ class AntrianController extends BaseController
         $today = date('Y-m-d');
 
         // Hitung nomor antrian berdasarkan kategori & hari ini
-        $nomorAntrian = $model->where('kategori', $kategori)
-                              ->where('DATE(waktu_antrian)', $today)
-                              ->countAllResults() + 1;
+        $nomorAntrian = $model
+            ->where('kategori', $kategori)
+            ->where('DATE(waktu_antrian)', $today)
+            ->countAllResults() + 1;
 
         // Simpan data antrian
         $data = [
@@ -61,12 +64,15 @@ class AntrianController extends BaseController
             'waktu_antrian'  => date('Y-m-d H:i:s'),
             'nomor_antrian'  => $nomorAntrian,
             'status'         => 'menunggu',
-            'id_pengunjung'  => $idPengunjung, // ✅ relasi ke pengunjung
+            'id_pengunjung'  => $idPengunjung,
         ];
 
         if ($model->save($data)) {
-            // Set ulang kategori ke session (opsional)
+            // Set kategori aktif ke session (tetap boleh ambil lagi jika diperlukan)
             session()->set('kategoriAktif', $kategori);
+
+            // Flashdata untuk menonaktifkan tombol (hanya 1x ambil)
+            session()->setFlashdata('kategoriDiambil', $kategori);
 
             return redirect()->to('/antrian')
                 ->with('success', "Nomor antrian $nomorAntrian berhasil diambil untuk " . ucfirst($kategori));

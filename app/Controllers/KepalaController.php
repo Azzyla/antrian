@@ -91,38 +91,91 @@ class KepalaController extends BaseController
         }
 
         // Grafik CS Terbaik per Bulan (berdasarkan penilaian = 5)
-        $query = $this->db->query("
-            SELECT DATE_FORMAT(created_at, '%M') AS bulan, cs, COUNT(*) AS total
+        $query = $this->db->query(
+            "SELECT DATE_FORMAT(created_at, '%Y-%m') AS bulan, cs, COUNT(*) AS total
             FROM kepuasan_layanan
             WHERE penilaian = 5
-            GROUP BY bulan, cs
-        ")->getResult();
+            GROUP BY bulan, cs"
+        )->getResult();
 
         $csTerbaikPerBulan = [];
+        $perBulanSemuaCS = [];
 
         foreach ($query as $row) {
             $bulan = $row->bulan;
             $cs = $row->cs;
             $total = $row->total;
 
+            $perBulanSemuaCS[$bulan][$cs] = (int) $total;
+
             if (!isset($csTerbaikPerBulan[$bulan]) || $total > $csTerbaikPerBulan[$bulan]['total']) {
                 $csTerbaikPerBulan[$bulan] = [
                     'cs' => $cs,
                     'total' => $total
                 ];
+            } elseif ($total == $csTerbaikPerBulan[$bulan]['total']) {
+                $csTerbaikPerBulan[$bulan] = [
+                    'cs' => 'Seri',
+                    'total' => $total
+                ];
             }
         }
 
-        $csTerbaikBulanLabels = array_keys($csTerbaikPerBulan);
+        // Buat daftar bulan tetap Januari–Desember tahun ini
+        $bulanDefault = [];
+        $namaBulan = [
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni',
+            7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+        ];
+
+        for ($i = 1; $i <= 12; $i++) {
+            $bulanKey = date('Y') . '-' . str_pad($i, 2, '0', STR_PAD_LEFT);
+            $bulanDefault[$bulanKey] = $namaBulan[$i];
+        }
+
+        $grafikBerjalanLabels = array_values($bulanDefault);
+        $grafikBerjalanValues = [];
+
+        foreach ($csList as $cs) {
+            foreach (array_keys($bulanDefault) as $bulan) {
+                $grafikBerjalanValues[$cs][] = $perBulanSemuaCS[$bulan][$cs] ?? 0;
+            }
+        }
+
+        $csTerbaikBulanLabels = array_map(function ($bulan) use ($namaBulan) {
+            $parts = explode('-', $bulan);
+            return $namaBulan[(int)$parts[1]];
+        }, array_keys($csTerbaikPerBulan));
+
         $csTerbaikBulanValues = array_map(function ($item) {
-            return (int) filter_var($item['cs'], FILTER_SANITIZE_NUMBER_INT);
+            return $item['cs'] === 'Seri' ? 0 : (int) filter_var($item['cs'], FILTER_SANITIZE_NUMBER_INT);
         }, array_values($csTerbaikPerBulan));
 
+        $totalPerBulanQuery = $this->db->query(
+            "SELECT DATE_FORMAT(created_at, '%Y-%m') AS bulan, COUNT(*) AS total
+            FROM kepuasan_layanan
+            GROUP BY bulan
+            ORDER BY bulan ASC"
+        )->getResult();
+
+        $grafikPerBulanLabels = [];
+        $grafikPerBulanValues = [];
+
+        foreach ($totalPerBulanQuery as $row) {
+            $parts = explode('-', $row->bulan);
+            $grafikPerBulanLabels[] = $namaBulan[(int)$parts[1]];
+            $grafikPerBulanValues[] = (int) $row->total;
+        }
+
         return view('kepala/dashboard_kepalaPLT', [
-            'penilaian'            => $penilaian,
-            'penilaianPerCS'       => $penilaianPerCS,
-            'csTerbaikBulanLabels' => $csTerbaikBulanLabels,
-            'csTerbaikBulanValues' => $csTerbaikBulanValues
+            'penilaian'              => $penilaian,
+            'penilaianPerCS'         => $penilaianPerCS,
+            'csTerbaikBulanLabels'   => $csTerbaikBulanLabels,
+            'csTerbaikBulanValues'   => $csTerbaikBulanValues,
+            'grafikPerBulanLabels'   => $grafikPerBulanLabels,
+            'grafikPerBulanValues'   => $grafikPerBulanValues,
+            'grafikBerjalanLabels'   => $grafikBerjalanLabels,
+            'grafikBerjalanValues'   => $grafikBerjalanValues
         ]);
     }
 
@@ -168,8 +221,8 @@ class KepalaController extends BaseController
         $page      = (int)($this->request->getVar('page') ?? 1);
 
         $builder = $this->antrianModel->select('antrian.*, users.username AS nama_cs, pengunjung.nim')
-    ->join('users', 'users.id = antrian.id_cs_plt', 'left')
-    ->join('pengunjung', 'pengunjung.id = antrian.id_pengunjung', 'left');
+            ->join('users', 'users.id = antrian.id_cs_plt', 'left')
+            ->join('pengunjung', 'pengunjung.id = antrian.id_pengunjung', 'left');
 
         if ($start && $end) {
             try {

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+    <meta charset="UTF-8">
     <title>Halaman Pengunjung</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -21,6 +24,7 @@
         }
         h3 {
             color: #007bff;
+            font-weight: bold;
         }
         .btn-dark {
             background-color: #007bff;
@@ -56,39 +60,33 @@
             }
 
             input.value = '';
-            toggleProdi(); // Update tampilan prodi saat label berubah
+            toggleProdi();
         }
 
         function toggleProdi() {
             const pengguna = document.getElementById("pengguna").value;
             const prodiDiv = document.getElementById("prodi-group");
-
-            if (pengguna === "umum") {
-                prodiDiv.style.display = "none";
-            } else {
-                prodiDiv.style.display = "block";
-            }
+            prodiDiv.style.display = (pengguna === "umum") ? "none" : "block";
         }
 
-        // Panggil saat pertama kali halaman dimuat
         document.addEventListener("DOMContentLoaded", function () {
             updateLabel();
         });
     </script>
-
 </head>
 <body>
 <div class="container">
-    <h3 class="text-center mb-4">Sistem Antrian PLT </p><p>(Pusat Layanan Terpadu)</h3>
+    <h3 class="text-center mb-3">Sistem Antrian PLT</h3>
+    <p class="text-center text-muted mb-4">(Pusat Layanan Terpadu)</p>
 
     <div class="text-center mb-4">
-        <img src="/logo_itp.png" alt="Logo" width="100">
+        <img src="/logo_itp.png" alt="Logo ITP" width="100">
     </div>
 
     <form action="/pengunjung/submit" method="post">
         <div class="mb-3">
             <label for="pengguna" class="form-label">Pengguna</label>
-            <select class="form-select" name="pengguna" id="pengguna" onchange="updateLabel()">
+            <select class="form-select" name="pengguna" id="pengguna" onchange="updateLabel()" required>
                 <option value="mahasiswa">Mahasiswa</option>
                 <option value="dosen">Dosen</option>
                 <option value="umum">Umum</option>
@@ -97,11 +95,11 @@
 
         <div class="mb-3">
             <label id="label-identitas" for="input-identitas" class="form-label">NIM</label>
-            <input type="text" class="form-control" id="input-identitas" name="nim" placeholder="Masukkan NIM">
+            <input type="text" class="form-control" id="input-identitas" name="nim" placeholder="Masukkan NIM" required>
         </div>
 
         <div class="mb-3" id="prodi-group">
-            <label for="prodi" class="form-label">Prodi</label>
+            <label for="prodi" class="form-label">Program Studi</label>
             <select class="form-select" name="prodi" id="prodi">
                 <option value="Teknik Informatika">Teknik Informatika</option>
                 <option value="Teknik Mesin">Teknik Mesin</option>
