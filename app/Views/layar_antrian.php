@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Layar Antrian</title>
@@ -18,7 +19,7 @@
             margin: 10px;
             width: 250px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             flex: 1;
         }
 
@@ -52,47 +53,55 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Video di atas, ukuran besar -->
     <div class="video">
-        <iframe 
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ"
-            title="Video Informasi"
-            allow="autoplay; encrypted-media" allowfullscreen>
+        <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/eZsK0QPtW7A?autoplay=1&mute=1"
+            title="YouTube video player"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
         </iframe>
+
     </div>
+
 
     <!-- Kotak Antrian -->
     <div class="container mt-4">
-    <div class="row justify-content-center">
+        <div class="row justify-content-center">
 
-<!-- Box Mahasiswa -->
-<div class="box-antrian">
-<h4>Mahasiswa</h4>
-<div class="nomor">
-<?= !empty($mahasiswa) ? 'A' . str_pad($mahasiswa['nomor_antrian'], 2, '0', STR_PAD_LEFT) : '-' ?>
-</div>
-</div>
+            <!-- Box Mahasiswa -->
+            <div class="box-antrian">
+                <h4>Mahasiswa</h4>
+                <div class="nomor">
+                    <?= !empty($mahasiswa) ? 'A' . str_pad($mahasiswa['nomor_antrian'], 2, '0', STR_PAD_LEFT) : '-' ?>
+                </div>
+            </div>
 
-<!-- Box Umum -->
-<div class="box-antrian">
-<h4>Umum</h4>
-<div class="nomor">
-<?= !empty($umum) ? 'C' . str_pad($umum['nomor_antrian'], 2, '0', STR_PAD_LEFT) : '-' ?>
-</div>
-</div>
+            <!-- Box Umum -->
+            <div class="box-antrian">
+                <h4>Umum</h4>
+                <div class="nomor">
+                    <?= !empty($umum) ? 'C' . str_pad($umum['nomor_antrian'], 2, '0', STR_PAD_LEFT) : '-' ?>
+                </div>
+            </div>
 
-<!-- Box Dosen/Karyawan -->
-<div class="box-antrian">
-<h4>Dosen/Karyawan</h4>
-<div class="nomor">
- <?= !empty($dosen) ? 'B' . str_pad($dosen['nomor_antrian'], 2, '0', STR_PAD_LEFT) : '-' ?>
-</div>
-</div>
+            <!-- Box Dosen/Karyawan -->
+            <div class="box-antrian">
+                <h4>Dosen/Karyawan</h4>
+                <div class="nomor">
+                    <?= !empty($dosen) ? 'B' . str_pad($dosen['nomor_antrian'], 2, '0', STR_PAD_LEFT) : '-' ?>
+                </div>
+            </div>
 
 
- </div>
-</div>
+        </div>
+    </div>
 </body>
+
 </html>
