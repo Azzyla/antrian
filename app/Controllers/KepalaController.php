@@ -4,17 +4,20 @@ namespace App\Controllers;
 
 use App\Models\PenilaianModel;
 use App\Models\AntrianModel;
+use App\Models\UserModel;
 use CodeIgniter\Controller;
 
 class KepalaController extends Controller
 {
     protected $antrianModel;
     protected $db;
+    protected $userModel;
 
     public function __construct()
     {
-        $this->antrianModel = new AntrianModel();
+        $this->antrianModel = new \App\Models\AntrianModel();
         $this->db = \Config\Database::connect();
+        $this->userModel = new UserModel();
     }
 
     public function dashboard()
@@ -73,9 +76,9 @@ class KepalaController extends Controller
 
     public function rekap_kepuasan()
     {
-        if (!$this->isKepala()) {
-            return redirect()->to('/kepala/login');
-        }
+        // if (!$this->isKepala()) {
+        //     return redirect()->to('/kepala/login');
+        // }
 
         $start = $this->request->getGet('start');
         $end   = $this->request->getGet('end');
@@ -85,7 +88,7 @@ class KepalaController extends Controller
         if ($start && $end) {
             try {
                 $builder->where('DATE(created_at) >=', date('Y-m-d', strtotime($start)))
-                        ->where('DATE(created_at) <=', date('Y-m-d', strtotime($end)));
+                    ->where('DATE(created_at) <=', date('Y-m-d', strtotime($end)));
             } catch (\Exception $e) {
                 return redirect()->back()->with('error', 'Format tanggal tidak valid.');
             }
@@ -103,9 +106,9 @@ class KepalaController extends Controller
 
     public function rekap_antrian()
     {
-        if (!$this->isKepala()) {
-            return redirect()->to('/kepala/login');
-        }
+        // if (!$this->isKepala()) {
+        //     return redirect()->to('/kepala/login');
+        // }
 
         $start     = $this->request->getGet('start');
         $end       = $this->request->getGet('end');
@@ -119,14 +122,14 @@ class KepalaController extends Controller
         if ($start && $end) {
             try {
                 $builder->where('DATE(antrian.created_at) >=', date('Y-m-d', strtotime($start)))
-                        ->where('DATE(antrian.created_at) <=', date('Y-m-d', strtotime($end)));
+                    ->where('DATE(antrian.created_at) <=', date('Y-m-d', strtotime($end)));
             } catch (\Exception $e) {
                 return redirect()->back()->with('error', 'Format tanggal tidak valid.');
             }
         }
 
         $laporan = $builder->orderBy('antrian.created_at', 'DESC')
-                           ->paginate($perPage, 'default', $page);
+            ->paginate($perPage, 'default', $page);
 
         return view('kepala/rekap_antrian', [
             'laporan'     => $laporan,
@@ -142,5 +145,48 @@ class KepalaController extends Controller
     private function isKepala(): bool
     {
         return session()->get('logged_in') && session()->get('role') === 'kepala';
+    }
+    public function kelola_user()
+    {
+        $users = $this->userModel->findAll();
+        return view('kepala/kelola_user', ['users' => $users]);
+    }
+
+    public function tambah_user()
+    {
+        return view('kepala/tambah_user');
+    }
+
+    public function simpan_user()
+    {
+        $rules = [
+            'username' => 'required|min_length[3]|is_unique[users.username]',
+            'password' => 'required|min_length[6]',
+            'role'     => 'required|in_list[cs1,cs2,cs3]'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('validation', $this->validator);
+        }
+
+        $this->userModel->save([
+            'username' => $this->request->getPost('username'),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
+            'role'     => $this->request->getPost('role')
+        ]);
+
+        return redirect()->to('/kepala/kelola_user')->with('success', 'User berhasil ditambahkan.');
+    }
+    public function delete_user($id)
+    {
+        $model = new UserModel();
+        $user = $model->find($id);
+
+        if (!$user) {
+            return redirect()->to('/kepala/kelola_user')->with('error', 'User tidak ditemukan.');
+        }
+
+        $model->delete($id);
+        return redirect()->to('/kepala/kelola_user')->with('success', 'User berhasil dihapus.');
     }
 }

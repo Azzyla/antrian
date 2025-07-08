@@ -33,9 +33,11 @@ $routes->post('authenticate', 'AuthController::authenticate');
 $routes->get('logout', 'AuthController::logout');
 
 // === ROUTE UNTUK KEPALA PLT ===
-$routes->get('kepala/login', 'KepalaController::login');
-$routes->post('kepala/login', 'KepalaController::loginPost');
-$routes->get('kepala/logout', 'KepalaController::logout');
+// $routes->get('kepala/login', 'KepalaController::login');
+// $routes->post('kepala/login', 'KepalaController::loginPost');
+// $routes->get('kepala/logout', 'KepalaController::logout');
+
+
 $routes->get('kepala/dashboard', 'KepalaController::dashboard');
 
 // === REKAP ANTRIAN ===
@@ -44,6 +46,13 @@ $routes->get('kepala/rekap_antrian', 'KepalaController::rekap_antrian');
 // === REKAP KEPUASAN ===
 $routes->get('kepala/rekap-kepuasan', 'KepalaController::rekap_kepuasan');
 $routes->get('kepala/rekap_kepuasan', 'KepalaController::rekap_kepuasan');
+// kelola user
+$routes->get('/kepala/kelola_user', 'KepalaController::kelola_user');
+$routes->get('/kepala/tambah_user', 'KepalaController::tambah_user');
+$routes->post('/kepala/simpan_user', 'KepalaController::simpan_user');
+$routes->get('/kepala/delete/(:num)', 'KepalaController::delete_user/$1');
+
+
 
 
 // Gunakan filter auth pada dashboard
@@ -54,5 +63,3 @@ $routes->get('referensi', 'ReferensiController::index', ['filter' => 'auth']);
 $routes->get('referensi/audio', 'ReferensiController::show', ['filter' => 'auth']);
 $routes->get('layar', 'LayarController::index', ['filter' => 'auth']);
 $routes->get('/rekap-kepuasan', 'Kepuasan::rekap', ['filter' => 'auth']);
-
-

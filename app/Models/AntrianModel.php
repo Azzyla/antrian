@@ -13,16 +13,30 @@ class AntrianModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
+    // protected $allowedFields = [
+    //     'kategori',
+    //     'tujuan_layanan',
+    //     'waktu_antrian',
+    //     'nomor_antrian',
+    //     'status',
+    //     'waktu_mulai',
+    //     'waktu_selesai',
+    //     'created_at',
+    //     'id_pengunjung', // ✅ Ditambahkan agar bisa menyimpan relasi ke tabel pengunjung
+    // ];
     protected $allowedFields = [
         'kategori',
         'tujuan_layanan',
-        'waktu_antrian',
         'nomor_antrian',
+        'waktu_antrian',
+        'created_at',
+        'updated_at',
+        'id_pengunjung',
+        'id_cs_plt',
+        'feedback',
         'status',
         'waktu_mulai',
-        'waktu_selesai',
-        'created_at',
-        'id_pengunjung', // ✅ Ditambahkan agar bisa menyimpan relasi ke tabel pengunjung
+        'waktu_selesai'
     ];
 
     // ✅ Hitung jumlah antrian HARI INI
@@ -46,8 +60,8 @@ class AntrianModel extends Model
 
         foreach ($kategoriList as $kategori) {
             $data = $this->where('kategori', $kategori)
-                         ->orderBy('waktu_antrian', 'DESC')
-                         ->first();
+                ->orderBy('waktu_antrian', 'DESC')
+                ->first();
             $result[$kategori] = $data ?? null;
         }
 
@@ -58,9 +72,9 @@ class AntrianModel extends Model
     public function getJumlahLayananHariIni()
     {
         return $this->select('kategori, COUNT(*) as total')
-                    ->where('DATE(created_at)', date('Y-m-d'))
-                    ->groupBy('kategori')
-                    ->findAll();
+            ->where('DATE(created_at)', date('Y-m-d'))
+            ->groupBy('kategori')
+            ->findAll();
     }
 
     // ✅ Rekap layanan berdasarkan tanggal dan kategori

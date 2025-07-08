@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +9,8 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
-    body, html {
+    body,
+    html {
       height: 100%;
       margin: 0;
     }
@@ -35,8 +37,10 @@
     .chart-container {
       position: relative;
       width: 100%;
-      max-width: 500px; /* Membatasi lebar grafik */
-      height: 200px;     /* Membatasi tinggi grafik */
+      max-width: 500px;
+      /* Membatasi lebar grafik */
+      height: 200px;
+      /* Membatasi tinggi grafik */
       margin: auto;
     }
 
@@ -69,6 +73,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="d-flex">
     <!-- Sidebar -->
@@ -80,6 +85,7 @@
       <a href="<?= base_url('kepala/dashboard') ?>">Dashboard</a>
       <a href="<?= base_url('kepala/rekap_antrian') ?>">Rekap Antrian</a>
       <a href="<?= base_url('kepala/rekap_kepuasan') ?>">Rekap Kepuasan</a>
+      <a href="<?= base_url('kepala/kelola_user') ?>">Kelola User</a>
       <a href="<?= base_url('kepala/logout') ?>" class="btn btn-outline-light w-100 mt-5">Logout</a>
     </div>
 
@@ -146,12 +152,12 @@
     const csLabels = ['CS 1', 'CS 2', 'CS 3'];
 
     const dataKepuasan = <?= json_encode([
-      $penilaian['Sangat Buruk'] ?? 0,
-      $penilaian['Buruk'] ?? 0,
-      $penilaian['Cukup'] ?? 0,
-      $penilaian['Baik'] ?? 0,
-      $penilaian['Sangat Baik'] ?? 0
-    ]) ?>;
+                            $penilaian['Sangat Buruk'] ?? 0,
+                            $penilaian['Buruk'] ?? 0,
+                            $penilaian['Cukup'] ?? 0,
+                            $penilaian['Baik'] ?? 0,
+                            $penilaian['Sangat Baik'] ?? 0
+                          ]) ?>;
 
     const dataPerCS = <?= json_encode($penilaianPerCS) ?>;
 
@@ -167,9 +173,7 @@
     const datasetsCSBerjalan = Object.keys(grafikBerjalanValues).map(cs => ({
       label: cs,
       data: grafikBerjalanValues[cs],
-      backgroundColor:
-        cs === 'CS 1' ? '#3498db' :
-        cs === 'CS 2' ? '#2ecc71' : '#e67e22'
+      backgroundColor: cs === 'CS 1' ? '#3498db' : cs === 'CS 2' ? '#2ecc71' : '#e67e22'
     }));
 
     const layananLabels = <?= json_encode($layananLabels ?? []) ?>;
@@ -191,11 +195,21 @@
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { display: false },
-          title: { display: true, text: 'Grafik Kepuasan Layanan' }
+          legend: {
+            display: false
+          },
+          title: {
+            display: true,
+            text: 'Grafik Kepuasan Layanan'
+          }
         },
         scales: {
-          y: { beginAtZero: true, ticks: { precision: 0 } }
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0
+            }
+          }
         }
       }
     });
@@ -203,8 +217,8 @@
     new Chart(document.getElementById('grafikPerCS'), {
       type: 'bar',
       data: {
-        labels: csLabels,
-        datasets: datasetsPerCS
+        labels: csLabels, // ['CS 1', 'CS 2', 'CS 3']
+        datasets: datasetsPerCS // tiap dataset adalah kategori: Sangat Buruk - Sangat Baik
       },
       options: {
         responsive: true,
@@ -213,20 +227,32 @@
           title: {
             display: true,
             text: 'Jumlah Penilaian per Jenis CS dan Kategori'
+          },
+          legend: {
+            position: 'top'
           }
         },
         scales: {
-          x: { stacked: true },
-          y: { stacked: true, beginAtZero: true, ticks: { precision: 0 } }
+          x: {
+            stacked: false // ⛔ Jangan ditumpuk
+          },
+          y: {
+            stacked: false,
+            beginAtZero: true,
+            ticks: {
+              precision: 0
+            }
+          }
         }
       }
     });
 
+
     new Chart(document.getElementById('grafikCSTerbaik'), {
       type: 'bar',
       data: {
-        labels: csTerbaikLabels,
-        datasets: datasetsCSBerjalan
+        labels: csTerbaikLabels, // contoh: ['Januari', 'Februari', 'Maret']
+        datasets: datasetsCSBerjalan // dataset tiap CS per bulan
       },
       options: {
         responsive: true,
@@ -238,11 +264,20 @@
           }
         },
         scales: {
-          x: { stacked: true },
-          y: { stacked: true, beginAtZero: true, ticks: { precision: 0 } }
+          x: {
+            stacked: false // ⛔ hilangkan stacked agar tiap CS tampil terpisah
+          },
+          y: {
+            stacked: false, // ⛔ hilangkan stacked agar bar tidak menumpuk
+            beginAtZero: true,
+            ticks: {
+              precision: 0
+            }
+          }
         }
       }
     });
+
 
     new Chart(document.getElementById('grafikLayanan'), {
       type: 'bar',
@@ -267,11 +302,14 @@
         scales: {
           y: {
             beginAtZero: true,
-            ticks: { precision: 0 }
+            ticks: {
+              precision: 0
+            }
           }
         }
       }
     });
   </script>
 </body>
+
 </html>

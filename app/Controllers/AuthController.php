@@ -7,6 +7,13 @@ use CodeIgniter\Controller;
 
 class AuthController extends Controller
 {
+    protected $userModel;
+
+    public function __construct()
+    {
+        $this->userModel = new UserModel();
+    }
+
     public function register()
     {
         return view('auth/register');
@@ -19,23 +26,20 @@ class AuthController extends Controller
 
     public function save()
     {
-        $model = new UserModel();
-
-        // Validasi input
-        $validation = \Config\Services::validation();
-        $validation->setRules([
+        $rules = [
             'username' => 'required|min_length[3]|max_length[255]|is_unique[users.username]',
-            'password' => 'required|min_length[6]'
-        ]);
+            'password' => 'required|min_length[6]',
+            'role'     => 'required|in_list[cs1,cs2,cs3,kepala]'
+        ];
 
-        if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->to('/register')->withInput()->with('validation', $validation);
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('validation', $this->validator);
         }
 
-        // Simpan data pengguna
-        $model->save([
+        $this->userModel->save([
             'username' => $this->request->getPost('username'),
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT)
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'role'     => $this->request->getPost('role')
         ]);
 
         return redirect()->to('/login')->with('success', 'Registrasi berhasil, silakan login.');
@@ -43,26 +47,32 @@ class AuthController extends Controller
 
     public function authenticate()
     {
-        $model = new UserModel();
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        // Cari user berdasarkan username
-        $user = $model->where('username', $username)->first();
+        $user = $this->userModel->where('username', $username)->first();
 
         if (!$user) {
             return redirect()->to('/login')->with('error', 'Username tidak ditemukan.');
         }
 
-        // Verifikasi password
         if (password_verify($password, $user['password'])) {
             session()->set([
                 'user_id'    => $user['id'],
                 'username'   => $user['username'],
+                'role'       => $user['role'],
                 'isLoggedIn' => true
             ]);
 
-            return redirect()->to('/dashboard');
+            // Arahkan berdasarkan role
+            if (in_array($user['role'], ['cs1', 'cs2', 'cs3'])) {
+                return redirect()->to('/panggilan');
+            } elseif ($user['role'] === 'kepala') {
+                return redirect()->to('/kepala/dashboard');
+            } else {
+                return redirect()->to('/login')->with('error', 'Role tidak dikenali.');
+            }
+
         } else {
             return redirect()->to('/login')->with('error', 'Password salah.');
         }
