@@ -74,39 +74,21 @@
 
         #messageToast {
             margin: 30px auto 0 auto;
-            max-width: 600px;
-            padding: 15px 25px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: bold;
+            max-width: 400px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
             color: white;
             background: linear-gradient(135deg, #00b894, #55efc4);
             text-align: center;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: slideUpFade 0.5s forwards, hideToast 0.5s 4.5s forwards;
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.4s ease-in-out;
         }
 
         .toast-error {
             background: linear-gradient(135deg, #d63031, #e17055);
-        }
-
-        @keyframes slideUpFade {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes hideToast {
-            to {
-                opacity: 0;
-                transform: translateY(30px);
-            }
         }
     </style>
 </head>
@@ -186,15 +168,7 @@
 
     <script>
         function handleAmbilNomor(kategori) {
-            const btn = document.getElementById('btn-' + kategori);
-            btn.disabled = true;
-            btn.classList.add('disabled');
-            btn.innerText = 'Sedang diproses...';
-
-            // Redirect ke ambil nomor
-            setTimeout(() => {
-                window.location.href = "<?= base_url('antrian/ambil/') ?>" + kategori;
-            }, 500);
+            window.location.href = "<?= base_url('antrian/ambil/') ?>" + kategori;
         }
     </script>
 

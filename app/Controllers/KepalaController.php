@@ -10,85 +10,151 @@ use CodeIgniter\Controller;
 class KepalaController extends Controller
 {
     protected $antrianModel;
-    protected $db;
     protected $userModel;
+    protected $db;
 
     public function __construct()
     {
-        $this->antrianModel = new \App\Models\AntrianModel();
-        $this->db = \Config\Database::connect();
+        $this->antrianModel = new AntrianModel();
         $this->userModel = new UserModel();
+        $this->db = \Config\Database::connect();
+    }
+
+    private function isKepala(): bool
+    {
+        return session()->get('logged_in') && session()->get('role') === 'kepala';
+    }
+
+    public function login()
+    {
+        return view('kepala/login');
+    }
+
+    public function proses_login()
+    {
+        $username = $this->request->getPost('username');
+        $password = $this->request->getPost('password');
+
+        $user = $this->userModel->where('username', $username)->first();
+
+        if ($user && password_verify($password, $user['password']) && $user['role'] === 'kepala') {
+            session()->set([
+                'logged_in' => true,
+                'user_id'   => $user['id'],
+                'username'  => $user['username'],
+                'role'      => $user['role']
+            ]);
+            return redirect()->to('/kepala/dashboard');
+        }
+
+        return redirect()->back()->with('error', 'Username atau password salah.');
+    }
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('/kepala/login');
     }
 
     public function dashboard()
     {
-        $db = \Config\Database::connect();
+        if (!$this->isKepala()) {
+            return redirect()->to('/kepala/login');
+        }
 
-        // Data kepuasan dummy
-        $penilaian = [
-            'Sangat Buruk' => 2,
-            'Buruk' => 5,
-            'Cukup' => 8,
-            'Baik' => 15,
-            'Sangat Baik' => 20
+        $kategoriMap = [
+            1 => 'Sangat Buruk',
+            2 => 'Buruk',
+            3 => 'Cukup',
+            4 => 'Baik',
+            5 => 'Sangat Baik'
         ];
 
-        // Data per CS dummy
-        $penilaianPerCS = [
-            'CS 1' => ['Sangat Buruk' => 1, 'Buruk' => 2, 'Cukup' => 4, 'Baik' => 6, 'Sangat Baik' => 8],
-            'CS 2' => ['Sangat Buruk' => 0, 'Buruk' => 1, 'Cukup' => 3, 'Baik' => 4, 'Sangat Baik' => 5],
-            'CS 3' => ['Sangat Buruk' => 1, 'Buruk' => 2, 'Cukup' => 1, 'Baik' => 2, 'Sangat Baik' => 3]
-        ];
+        $penilaian = array_fill_keys(array_values($kategoriMap), 0);
+        $query = $this->db->query("SELECT penilaian, COUNT(*) AS total FROM kepuasan_layanan GROUP BY penilaian");
+        foreach ($query->getResult() as $row) {
+            $label = $kategoriMap[(int)$row->penilaian] ?? 'Lainnya';
+            $penilaian[$label] = (int)$row->total;
+        }
 
-        // Grafik berjalan dummy
-        $grafikBerjalanLabels = ['Januari', 'Februari', 'Maret', 'April'];
-        $grafikBerjalanValues = [
-            'CS 1' => [5, 6, 7, 8],
-            'CS 2' => [2, 4, 5, 6],
-            'CS 3' => [3, 4, 6, 7]
-        ];
+        $csList = ['CS Dayu', 'CS Riska', 'CS Robi', 'CS Dewi'];
+        $penilaianPerCS = [];
+        foreach ($csList as $cs) {
+            $penilaianPerCS[$cs] = array_fill_keys(array_values($kategoriMap), 0);
+        }
 
-        // Ambil jumlah layanan
-        $query = $db->query("
-            SELECT layanan, COUNT(*) AS total 
-            FROM layanan 
-            GROUP BY layanan
-        ");
-        $layananRows = $query->getResult();
+        $query = $this->db->query("SELECT cs, penilaian, COUNT(*) AS total FROM kepuasan_layanan GROUP BY cs, penilaian");
+        foreach ($query->getResult() as $row) {
+            $cs = $row->cs;
+            $label = $kategoriMap[(int)$row->penilaian] ?? 'Lainnya';
+            if (isset($penilaianPerCS[$cs])) {
+                $penilaianPerCS[$cs][$label] = (int)$row->total;
+            }
+        }
 
+        $grafikBerjalanLabels = [];
+        $grafikBerjalanValues = [];
+        foreach ($csList as $cs) {
+            $grafikBerjalanValues[$cs] = [];
+        }
+
+        $bulanMap = [1 => 'Jan', 2 => 'Feb', 3 => 'Mar', 4 => 'Apr', 5 => 'Mei', 6 => 'Jun', 7 => 'Jul', 8 => 'Agu', 9 => 'Sep', 10 => 'Okt', 11 => 'Nov', 12 => 'Des'];
+        $labelBulanSet = [];
+
+        $query = $this->db->query("SELECT DISTINCT MONTH(created_at) AS bulan FROM kepuasan_layanan ORDER BY bulan ASC");
+        foreach ($query->getResult() as $row) {
+            $labelBulanSet[(int)$row->bulan] = $bulanMap[(int)$row->bulan] ?? 'Bulan ' . $row->bulan;
+        }
+        ksort($labelBulanSet);
+        $grafikBerjalanLabels = array_values($labelBulanSet);
+
+        foreach ($csList as $cs) {
+            foreach (array_keys($labelBulanSet) as $bulan) {
+                $grafikBerjalanValues[$cs][] = 0;
+            }
+        }
+
+        $query = $this->db->query("SELECT cs, MONTH(created_at) AS bulan, COUNT(*) AS total FROM kepuasan_layanan WHERE penilaian = 5 GROUP BY cs, MONTH(created_at)");
+        foreach ($query->getResult() as $row) {
+            $cs = $row->cs;
+            $bulanIndex = array_search($bulanMap[(int)$row->bulan], $grafikBerjalanLabels);
+            if ($cs && isset($grafikBerjalanValues[$cs][$bulanIndex])) {
+                $grafikBerjalanValues[$cs][$bulanIndex] = (int)$row->total;
+            }
+        }
+
+        $query = $this->db->query("SELECT layanan.layanan, COUNT(*) AS total FROM antrian JOIN layanan ON layanan.id_layanan = antrian.id_layanan GROUP BY layanan.layanan");
         $layananLabels = [];
         $layananValues = [];
-
-        foreach ($layananRows as $row) {
+        foreach ($query->getResult() as $row) {
             $layananLabels[] = $row->layanan;
-            $layananValues[] = (int) $row->total;
+            $layananValues[] = (int)$row->total;
         }
 
         return view('kepala/dashboard_kepalaPLT', [
-            'penilaian' => $penilaian,
-            'penilaianPerCS' => $penilaianPerCS,
+            'penilaian'            => $penilaian,
+            'penilaianPerCS'       => $penilaianPerCS,
             'grafikBerjalanLabels' => $grafikBerjalanLabels,
             'grafikBerjalanValues' => $grafikBerjalanValues,
-            'layananLabels' => $layananLabels,
-            'layananValues' => $layananValues
+            'layananLabels'        => $layananLabels,
+            'layananValues'        => $layananValues
         ]);
     }
 
     public function rekap_kepuasan()
     {
-        // if (!$this->isKepala()) {
-        //     return redirect()->to('/kepala/login');
-        // }
+        if (!$this->isKepala()) {
+            return redirect()->to('/kepala/login');
+        }
 
         $start = $this->request->getGet('start');
         $end   = $this->request->getGet('end');
-
         $builder = $this->db->table('kepuasan_layanan');
 
         if ($start && $end) {
             try {
                 $builder->where('DATE(created_at) >=', date('Y-m-d', strtotime($start)))
-                    ->where('DATE(created_at) <=', date('Y-m-d', strtotime($end)));
+                        ->where('DATE(created_at) <=', date('Y-m-d', strtotime($end)));
             } catch (\Exception $e) {
                 return redirect()->back()->with('error', 'Format tanggal tidak valid.');
             }
@@ -106,23 +172,25 @@ class KepalaController extends Controller
 
     public function rekap_antrian()
     {
-        // if (!$this->isKepala()) {
-        //     return redirect()->to('/kepala/login');
-        // }
+        if (!$this->isKepala()) {
+            return redirect()->to('/kepala/login');
+        }
 
         $start     = $this->request->getGet('start');
         $end       = $this->request->getGet('end');
         $perPage   = (int)($this->request->getGet('perPage') ?? 10);
         $page      = (int)($this->request->getVar('page') ?? 1);
 
-        $builder = $this->antrianModel->select('antrian.*, users.username AS nama_cs, pengunjung.nim')
+        $builder = $this->antrianModel
+            ->select('antrian.*, users.username AS nama_cs, pengunjung.pengguna, pengunjung.nim, pengunjung.nidn, pengunjung.nik, layanan.layanan AS nama_layanan')
             ->join('users', 'users.id = antrian.id_cs_plt', 'left')
-            ->join('pengunjung', 'pengunjung.id = antrian.id_pengunjung', 'left');
+            ->join('pengunjung', 'pengunjung.id = antrian.id_pengunjung', 'left')
+            ->join('layanan', 'layanan.id_layanan = antrian.id_layanan', 'left');
 
         if ($start && $end) {
             try {
                 $builder->where('DATE(antrian.created_at) >=', date('Y-m-d', strtotime($start)))
-                    ->where('DATE(antrian.created_at) <=', date('Y-m-d', strtotime($end)));
+                        ->where('DATE(antrian.created_at) <=', date('Y-m-d', strtotime($end)));
             } catch (\Exception $e) {
                 return redirect()->back()->with('error', 'Format tanggal tidak valid.');
             }
@@ -142,51 +210,57 @@ class KepalaController extends Controller
         ]);
     }
 
-    private function isKepala(): bool
-    {
-        return session()->get('logged_in') && session()->get('role') === 'kepala';
-    }
     public function kelola_user()
     {
-        $users = $this->userModel->findAll();
-        return view('kepala/kelola_user', ['users' => $users]);
-    }
+        if (!$this->isKepala()) {
+            return redirect()->to('/kepala/login');
+        }
 
-    public function tambah_user()
-    {
-        return view('kepala/tambah_user');
+        $users = $this->userModel->findAll();
+
+        return view('kepala/kelola_user', [
+            'users'      => $users,
+            'validation' => \Config\Services::validation()
+        ]);
     }
 
     public function simpan_user()
     {
+        if (!$this->isKepala()) {
+            return redirect()->to('/kepala/login');
+        }
+
         $rules = [
             'username' => 'required|min_length[3]|is_unique[users.username]',
             'password' => 'required|min_length[6]',
-            'role'     => 'required|in_list[cs1,cs2,cs3]'
+            'role'     => 'required|in_list[cs1,cs2,cs3,cs4]'
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('validation', $this->validator);
+            return redirect()->back()->withInput()->with('validation', \Config\Services::validation());
         }
 
         $this->userModel->save([
             'username' => $this->request->getPost('username'),
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
             'role'     => $this->request->getPost('role')
         ]);
 
         return redirect()->to('/kepala/kelola_user')->with('success', 'User berhasil ditambahkan.');
     }
+
     public function delete_user($id)
     {
-        $model = new UserModel();
-        $user = $model->find($id);
+        if (!$this->isKepala()) {
+            return redirect()->to('/kepala/login');
+        }
 
+        $user = $this->userModel->find($id);
         if (!$user) {
             return redirect()->to('/kepala/kelola_user')->with('error', 'User tidak ditemukan.');
         }
 
-        $model->delete($id);
+        $this->userModel->delete($id);
         return redirect()->to('/kepala/kelola_user')->with('success', 'User berhasil dihapus.');
     }
 }

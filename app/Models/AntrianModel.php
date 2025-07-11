@@ -13,21 +13,11 @@ class AntrianModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
-    // protected $allowedFields = [
-    //     'kategori',
-    //     'tujuan_layanan',
-    //     'waktu_antrian',
-    //     'nomor_antrian',
-    //     'status',
-    //     'waktu_mulai',
-    //     'waktu_selesai',
-    //     'created_at',
-    //     'id_pengunjung', // ✅ Ditambahkan agar bisa menyimpan relasi ke tabel pengunjung
-    // ];
     protected $allowedFields = [
         'kategori',
-        'tujuan_layanan',
+        'id_layanan',
         'nomor_antrian',
+        'kode_antrian',
         'waktu_antrian',
         'created_at',
         'updated_at',
@@ -39,20 +29,17 @@ class AntrianModel extends Model
         'waktu_selesai'
     ];
 
-    // ✅ Hitung jumlah antrian HARI INI
     public function getJumlahAntrianHariIni()
     {
         return $this->where('DATE(created_at)', date('Y-m-d'))->countAllResults();
     }
 
-    // ✅ Ambil antrian terakhir secara global (berdasarkan waktu antrian)
     public function getAntrianSedangDipanggil()
     {
         $antrian = $this->orderBy('waktu_antrian', 'DESC')->first();
         return $antrian ? $antrian['nomor_antrian'] : '-';
     }
 
-    // ✅ Ambil antrian terakhir per kategori
     public function getLastDipanggilPerKategori()
     {
         $kategoriList = ['mahasiswa', 'dosen', 'umum'];
@@ -68,7 +55,6 @@ class AntrianModel extends Model
         return $result;
     }
 
-    // ✅ Hitung jumlah layanan hari ini per kategori
     public function getJumlahLayananHariIni()
     {
         return $this->select('kategori, COUNT(*) as total')
@@ -77,30 +63,38 @@ class AntrianModel extends Model
             ->findAll();
     }
 
-    // ✅ Rekap layanan berdasarkan tanggal dan kategori
     public function getRekap($startDate, $endDate, $status)
     {
         $builder = $this->db->table($this->table);
-        $builder->select('kategori AS status_pengunjung, tujuan_layanan, COUNT(*) as jumlah');
-        $builder->where('DATE(created_at) >=', $startDate);
-        $builder->where('DATE(created_at) <=', $endDate);
+        $builder->select('antrian.*, layanan.layanan AS nama_layanan');
+        $builder->join('layanan', 'antrian.id_layanan = layanan.id_layanan', 'left');
+        $builder->where('DATE(antrian.created_at) >=', $startDate);
+        $builder->where('DATE(antrian.created_at) <=', $endDate);
 
         if ($status !== 'Semua') {
-            $builder->where('kategori', $status);
+            $builder->where('antrian.kategori', $status);
         }
 
-        $builder->groupBy(['kategori', 'tujuan_layanan']);
-        return $builder->get()->getResultArray();
+        return $builder->get()->getResult();
     }
 
-    // ✅ Ambil semua antrian hari ini, urut berdasarkan status dan waktu
     public function getAntrianHariIni()
     {
-        $builder = $this->builder();
-        $builder->where('DATE(created_at)', date('Y-m-d'));
-        $builder->orderBy("FIELD(status, 'menunggu', 'dipanggil', 'dilayani', 'selesai')", '', false);
-        $builder->orderBy('waktu_antrian', 'ASC');
+        $builder = $this->db->table($this->table);
+        $builder->select('antrian.*, layanan.layanan AS nama_layanan');
+        $builder->join('layanan', 'antrian.id_layanan = layanan.id_layanan', 'left');
+        $builder->where('DATE(antrian.created_at)', date('Y-m-d'));
+        $builder->orderBy("FIELD(antrian.status, 'menunggu', 'dipanggil', 'dilayani', 'selesai')", '', false);
+        $builder->orderBy('antrian.waktu_antrian', 'ASC');
+        return $builder->get()->getResult();
+    }
 
-        return $builder->get()->getResultArray();
+    // Tambahan: Ambil semua antrian lengkap dengan nama layanan
+    public function getAntrianWithLayanan()
+    {
+        return $this->db->table($this->table)
+            ->select('antrian.*, layanan.layanan AS nama_layanan')
+            ->join('layanan', 'antrian.id_layanan = layanan.id_layanan', 'left')
+            ->get()->getResult();
     }
 }

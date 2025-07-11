@@ -60,12 +60,13 @@ class AuthController extends Controller
             session()->set([
                 'user_id'    => $user['id'],
                 'username'   => $user['username'],
+                'name'       => ucfirst($user['username']), // Set 'name' untuk ditampilkan di dashboard
                 'role'       => $user['role'],
                 'isLoggedIn' => true
             ]);
 
             // Arahkan berdasarkan role
-            if (in_array($user['role'], ['cs1', 'cs2', 'cs3'])) {
+            if (in_array($user['role'], ['cs1', 'cs2', 'cs3','cs4'])) {
                 return redirect()->to('/panggilan');
             } elseif ($user['role'] === 'kepala') {
                 return redirect()->to('/kepala/dashboard');

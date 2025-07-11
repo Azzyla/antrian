@@ -9,7 +9,7 @@ class LayananController extends Controller
 {
     public function index()
     {
-        return view('layanan'); // Nama file view HTML kamu
+        return view('layanan'); // Tampilkan form view layanan
     }
 
     public function simpan()
@@ -19,13 +19,33 @@ class LayananController extends Controller
         $layanan = $this->request->getPost('layanan');
         $layananLain = $this->request->getPost('layanan_lain');
 
-        $data = [
-            'layanan' => $layanan ?: $layananLain,
-            'created_at' => date('Y-m-d H:i:s'),
-        ];
+        // Pakai yang diisi user
+        $namaLayanan = $layanan ?: $layananLain;
 
-        $model->insert($data);
+      
 
-        return redirect()->to('/antrian')->with('success', 'Layanan berhasil disimpan.');
+        // Cari apakah layanan sudah ada
+        #$layananData = $model->where('layanan', $namaLayanan)->first();
+
+       # if (!$layananData) {
+            // Jika belum ada, simpan baru
+            $model->insert([
+                'layanan' => $namaLayanan,
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
+
+           $idLayanan = $model->getInsertID(); // ✅ AMAN ambil ID setelah insert
+        #} else {
+            // Jika sudah ada, ambil ID-nya
+           # $idLayanan = $layananData['id_layanan']; // ✅ AMAN karena sudah dicek sebelumnya
+        #}
+
+        // Simpan ke session untuk digunakan saat ambil antrian
+        session()->remove('id_Layanan');
+        session()->set('id_Layanan', $idLayanan);
+       
+    
+
+        return redirect()->to('/antrian')->with('success', 'Layanan berhasil dipilih.');
     }
 }

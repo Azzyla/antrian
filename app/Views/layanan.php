@@ -73,6 +73,12 @@
   <div class="window">
     <h5>Pilihan Layanan</h5>
 
+    <?php if (session()->getFlashdata('error')): ?>
+      <div class="alert alert-danger">
+        <?= session()->getFlashdata('error') ?>
+      </div>
+    <?php endif; ?>
+
     <form method="post" action="/layanan/simpan">
       <div class="mb-4">
         <select class="form-select" name="layanan" id="layananSelect" onchange="cekLainnya()" required>
@@ -103,6 +109,9 @@
         <input type="text" class="form-control" name="layanan_lain" placeholder="Masukkan layanan lainnya...">
       </div>
 
+      <!-- Hidden kategori -->
+      <input type="hidden" name="kategori" id="kategoriInput">
+
       <div class="d-grid">
         <button type="submit" class="btn btn-blue">OK</button>
       </div>
@@ -110,7 +119,7 @@
   </div>
 
   <script>
-    const kategori = "<?= strtolower(session('kategoriAktif') ?? '') ?>"; // ✅ Ambil dari session yang benar
+    const kategori = "<?= strtolower(session('kategoriAktif') ?? '') ?>";
 
     function filterLayananByKategori() {
       const layananSelect = document.getElementById("layananSelect");
@@ -121,11 +130,13 @@
         const dataKategori = opt.getAttribute("data-kategori");
 
         if (!dataKategori || opt.value === "") {
-          opt.style.display = ""; // Pilihan kosong tetap ditampilkan
+          opt.style.display = "";
+        } else if (kategori === "") {
+          opt.style.display = "";
         } else if (dataKategori.includes(kategori)) {
-          opt.style.display = ""; // Tampilkan jika kategori cocok
+          opt.style.display = "";
         } else {
-          opt.style.display = "none"; // Sembunyikan jika tidak cocok
+          opt.style.display = "none";
         }
       }
     }
@@ -134,11 +145,15 @@
       const selected = document.getElementById("layananSelect").value;
       const inputLainnya = document.getElementById("lainnyaInputContainer");
       inputLainnya.style.display = (selected === "lainnya") ? "block" : "none";
+
+      const selectedOption = document.querySelector('#layananSelect option:checked');
+      const kategoriVal = selectedOption ? selectedOption.getAttribute('data-kategori') : '';
+      document.getElementById('kategoriInput').value = kategoriVal;
     }
 
     window.onload = function () {
       filterLayananByKategori();
-      cekLainnya(); // untuk antisipasi reload
+      cekLainnya();
     };
   </script>
 

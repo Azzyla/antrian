@@ -16,6 +16,8 @@ $routes->post('rekap/loadData', 'RekapController::loadData');
 
 $routes->get('antrian', 'AntrianController::index');
 $routes->get('antrian/ambil/(:segment)', 'AntrianController::ambil/$1');
+$routes->post('antrian/ambil/(:segment)', 'AntrianController::ambil/$1');
+
 $routes->get('/antrian/panggil', 'AntrianController::panggilBerikutnya');
 $routes->get('/kepuasan', 'KepuasanController::index');
 $routes->post('/kepuasan/simpan', 'KepuasanController::simpan');
@@ -33,12 +35,15 @@ $routes->post('authenticate', 'AuthController::authenticate');
 $routes->get('logout', 'AuthController::logout');
 
 // === ROUTE UNTUK KEPALA PLT ===
-// $routes->get('kepala/login', 'KepalaController::login');
-// $routes->post('kepala/login', 'KepalaController::loginPost');
-// $routes->get('kepala/logout', 'KepalaController::logout');
+//$routes->get('kepala/login', 'KepalaController::login');
+//$routes->post('kepala/login', 'KepalaController::loginPost');
+//$routes->get('kepala/logout', 'KepalaController::logout');
 
-
-$routes->get('kepala/dashboard', 'KepalaController::dashboard');
+//== Dasboard==
+$routes->get('/kepala/login', 'KepalaController::login');
+$routes->post('/kepala/login', 'KepalaController::proses_login');
+$routes->get('/kepala/logout', 'KepalaController::logout');
+$routes->get('/kepala/dashboard', 'KepalaController::dashboard');
 
 // === REKAP ANTRIAN ===
 $routes->get('kepala/rekap-antrian', 'KepalaController::rekap_antrian');

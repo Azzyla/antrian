@@ -49,14 +49,22 @@
                 label.textContent = "NIM";
                 input.name = "nim";
                 input.placeholder = "Masukkan NIM";
+                input.required = true;
             } else if (pengguna === "dosen") {
                 label.textContent = "NIDN";
                 input.name = "nidn";
                 input.placeholder = "Masukkan NIDN";
-            } else {
+                input.required = true;
+            } else if (pengguna === "umum") {
                 label.textContent = "NIK";
                 input.name = "nik";
                 input.placeholder = "Masukkan NIK";
+                input.required = true;
+            } else {
+                label.textContent = "Identitas";
+                input.name = "identitas";
+                input.placeholder = "Masukkan Identitas";
+                input.required = false;
             }
 
             input.value = '';
@@ -66,11 +74,19 @@
         function toggleProdi() {
             const pengguna = document.getElementById("pengguna").value;
             const prodiDiv = document.getElementById("prodi-group");
-            prodiDiv.style.display = (pengguna === "umum") ? "none" : "block";
+            prodiDiv.style.display = (pengguna === "mahasiswa" || pengguna === "dosen") ? "block" : "none";
+
+            const prodiSelect = document.getElementById("prodi");
+            if (pengguna === "mahasiswa" || pengguna === "dosen") {
+                prodiSelect.required = true;
+            } else {
+                prodiSelect.required = false;
+                prodiSelect.selectedIndex = 0;
+            }
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-            updateLabel();
+            toggleProdi();
         });
     </script>
 </head>
@@ -87,6 +103,7 @@
         <div class="mb-3">
             <label for="pengguna" class="form-label">Pengguna</label>
             <select class="form-select" name="pengguna" id="pengguna" onchange="updateLabel()" required>
+                <option value="" disabled selected>-- Pilih Jenis Pengguna --</option>
                 <option value="mahasiswa">Mahasiswa</option>
                 <option value="dosen">Dosen</option>
                 <option value="umum">Umum</option>
@@ -94,21 +111,24 @@
         </div>
 
         <div class="mb-3">
-            <label id="label-identitas" for="input-identitas" class="form-label">NIM</label>
-            <input type="text" class="form-control" id="input-identitas" name="nim" placeholder="Masukkan NIM" required>
+            <label id="label-identitas" for="input-identitas" class="form-label">Identitas</label>
+            <input type="text" class="form-control" id="input-identitas" name="nik" placeholder="Masukkan Identitas" required>
         </div>
 
-        <div class="mb-3" id="prodi-group">
+        <div class="mb-3" id="prodi-group" style="display: none;">
             <label for="prodi" class="form-label">Program Studi</label>
             <select class="form-select" name="prodi" id="prodi">
-                <option value="Teknik Informatika">Teknik Informatika</option>
-                <option value="Teknik Mesin">Teknik Mesin</option>
-                <option value="Teknik Sipil">Teknik Sipil</option>
-                <option value="Teknik Lingkungan">Teknik Lingkungan</option>
-                <option value="Teknik Elektro">Teknik Elektro</option>
-                <option value="Teknik Geodesi">Teknik Geodesi</option>
-                <option value="Tril-D4">Tril-D4</option>
-                <option value="Teknik Sipil-D4">Teknik Sipil-D4</option>
+                <option value="" disabled selected>-- Pilih Program Studi --</option>
+                <option value="Teknik Informatika S1">Teknik Informatika Sarjana</option>
+                <option value="Teknik Mesin S1">Teknik Mesin Sarjana</option>
+                <option value="Teknik Mesin D3">Teknik Mesin Diploma</option>
+                <option value="Teknik Elektro S1">Teknik Elektro Sarjana</option>
+                <option value="TRIL D4">TRIL - Sarjana Terapan</option>
+                <option value="Teknik Sipil S1">Teknik Sipil Sarjana</option>
+                <option value="Teknik Sipil S2">Teknik Sipil Magister</option>
+                <option value="TRKBG D4">TRKBG - Sarjana Terapan</option>
+                <option value="Teknik Lingkungan S1">Teknik Lingkungan Sarjana</option>
+                <option value="Teknik Geodesi S1">Teknik Geodesi</option>
             </select>
         </div>
 

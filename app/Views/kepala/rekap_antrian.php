@@ -67,7 +67,8 @@
             <th>No</th>
             <th>Tanggal</th>
             <th>Kategori</th>
-            <th>NIM</th>
+            <th>NIM / NIDN / NIK</th>
+            <th>Layanan</th>
             <th>Nomor Antrian</th>
             <th>Status</th>
             <th>CS</th>
@@ -87,14 +88,23 @@
                     <td><?= esc($row['kategori']) ?></td>
                     <td>
                         <?php
-                        if ($row['kategori'] === 'mahasiswa') {
-                            echo esc($row['nim'] ?? '-');
-                        } else {
-                            echo '-';
+                        switch ($row['kategori']) {
+                            case 'mahasiswa':
+                                echo esc($row['nim'] ?? '-');
+                                break;
+                            case 'dosen':
+                                echo esc($row['nidn'] ?? '-');
+                                break;
+                            case 'umum':
+                                echo esc($row['nik'] ?? '-');
+                                break;
+                            default:
+                                echo '-';
+                                break;
                         }
                         ?>
                     </td>
-                    <td><?= esc($row['nomor_antrian'] ?? $row['id']) ?></td>
+                    <td><?= ($row['nama_layanan']) ?></td>
                     <td><?= esc($row['status'] ?? '-') ?></td>
                     <td><?= esc($row['nama_cs'] ?? '-') ?></td>
                     <td><?= $row['waktu_mulai'] ? date('H:i', strtotime($row['waktu_mulai'])) : '-' ?></td>

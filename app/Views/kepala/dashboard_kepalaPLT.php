@@ -38,9 +38,7 @@
       position: relative;
       width: 100%;
       max-width: 500px;
-      /* Membatasi lebar grafik */
       height: 200px;
-      /* Membatasi tinggi grafik */
       margin: auto;
     }
 
@@ -146,170 +144,165 @@
   </div>
 
   <!-- Script Chart -->
-  <script>
-    const kategoriLabels = ['Sangat Buruk', 'Buruk', 'Cukup', 'Baik', 'Sangat Baik'];
-    const kategoriColors = ['#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', '#3498db'];
-    const csLabels = ['CS 1', 'CS 2', 'CS 3'];
+ <!-- Potongan JS -->
+<script>
+  const kategoriLabels = ['Sangat Buruk', 'Buruk', 'Cukup', 'Baik', 'Sangat Baik'];
+  const kategoriColors = ['#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', '#3498db'];
 
-    const dataKepuasan = <?= json_encode([
-                            $penilaian['Sangat Buruk'] ?? 0,
-                            $penilaian['Buruk'] ?? 0,
-                            $penilaian['Cukup'] ?? 0,
-                            $penilaian['Baik'] ?? 0,
-                            $penilaian['Sangat Baik'] ?? 0
-                          ]) ?>;
+  const csKeys = ['CS Riska', 'CS Dayu', 'CS Robi', 'CS Dewi']; // Sesuai data DB
+  const csDisplayLabels = {
+    'CS Riska': 'Riska',
+    'CS Dayu': 'Dayu',
+    'CS Robi': 'Robi',
+    'CS Dewi': 'Dewi'
+  };
 
-    const dataPerCS = <?= json_encode($penilaianPerCS) ?>;
+  const dataKepuasan = <?= json_encode([
+    $penilaian['Sangat Buruk'] ?? 0,
+    $penilaian['Buruk'] ?? 0,
+    $penilaian['Cukup'] ?? 0,
+    $penilaian['Baik'] ?? 0,
+    $penilaian['Sangat Baik'] ?? 0
+  ]) ?>;
 
-    const datasetsPerCS = kategoriLabels.map((kategori, idx) => ({
-      label: kategori,
-      data: csLabels.map(cs => dataPerCS[cs]?.[kategori] ?? 0),
-      backgroundColor: kategoriColors[idx]
-    }));
+  const dataPerCS = <?= json_encode($penilaianPerCS) ?>;
 
-    const csTerbaikLabels = <?= json_encode($grafikBerjalanLabels ?? []) ?>;
-    const grafikBerjalanValues = <?= json_encode($grafikBerjalanValues ?? []) ?>;
+  const datasetsPerCS = kategoriLabels.map((kategori, idx) => ({
+    label: kategori,
+    data: csKeys.map(cs => dataPerCS[cs]?.[kategori] ?? 0),
+    backgroundColor: kategoriColors[idx]
+  }));
 
-    const datasetsCSBerjalan = Object.keys(grafikBerjalanValues).map(cs => ({
-      label: cs,
-      data: grafikBerjalanValues[cs],
-      backgroundColor: cs === 'CS 1' ? '#3498db' : cs === 'CS 2' ? '#2ecc71' : '#e67e22'
-    }));
+  const csTerbaikLabels = <?= json_encode($grafikBerjalanLabels ?? []) ?>;
+  const grafikBerjalanValues = <?= json_encode($grafikBerjalanValues ?? []) ?>;
 
-    const layananLabels = <?= json_encode($layananLabels ?? []) ?>;
-    const layananValues = <?= json_encode($layananValues ?? []) ?>;
+  const datasetsCSBerjalan = csKeys.map(cs => ({
+    label: csDisplayLabels[cs],
+    data: grafikBerjalanValues[cs] ?? [],
+    backgroundColor:
+      cs === 'CS Riska' ? '#3498db' :
+      cs === 'CS Dayu' ? '#2ecc71' :
+      cs === 'CS Robi' ? '#e67e22' :
+      '#9b59b6'
+  }));
 
-    new Chart(document.getElementById('grafikKepuasan'), {
-      type: 'bar',
-      data: {
-        labels: kategoriLabels,
-        datasets: [{
-          label: 'Jumlah Penilaian',
-          data: dataKepuasan,
-          backgroundColor: kategoriColors,
-          borderWidth: 1,
-          barThickness: 20
-        }]
+  const layananLabels = <?= json_encode($layananLabels ?? []) ?>;
+  const layananValues = <?= json_encode($layananValues ?? []) ?>;
+
+  new Chart(document.getElementById('grafikKepuasan'), {
+    type: 'bar',
+    data: {
+      labels: kategoriLabels,
+      datasets: [{
+        label: 'Jumlah Penilaian',
+        data: dataKepuasan,
+        backgroundColor: kategoriColors,
+        borderWidth: 1,
+        barThickness: 20
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: 'Grafik Kepuasan Layanan'
+        }
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false
-          },
-          title: {
-            display: true,
-            text: 'Grafik Kepuasan Layanan'
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              precision: 0
-            }
-          }
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { precision: 0 }
         }
       }
-    });
+    }
+  });
 
-    new Chart(document.getElementById('grafikPerCS'), {
-      type: 'bar',
-      data: {
-        labels: csLabels, // ['CS 1', 'CS 2', 'CS 3']
-        datasets: datasetsPerCS // tiap dataset adalah kategori: Sangat Buruk - Sangat Baik
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Jumlah Penilaian per Jenis CS dan Kategori'
-          },
-          legend: {
-            position: 'top'
-          }
+  new Chart(document.getElementById('grafikPerCS'), {
+    type: 'bar',
+    data: {
+      labels: csKeys.map(cs => csDisplayLabels[cs]),
+      datasets: datasetsPerCS
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Jumlah Penilaian per Jenis CS dan Kategori'
         },
-        scales: {
-          x: {
-            stacked: false // ⛔ Jangan ditumpuk
-          },
-          y: {
-            stacked: false,
-            beginAtZero: true,
-            ticks: {
-              precision: 0
-            }
-          }
+        legend: { position: 'top' }
+      },
+      scales: {
+        x: { stacked: false },
+        y: {
+          stacked: false,
+          beginAtZero: true,
+          ticks: { precision: 0 }
         }
       }
-    });
+    }
+  });
 
-
-    new Chart(document.getElementById('grafikCSTerbaik'), {
-      type: 'bar',
-      data: {
-        labels: csTerbaikLabels, // contoh: ['Januari', 'Februari', 'Maret']
-        datasets: datasetsCSBerjalan // dataset tiap CS per bulan
+  new Chart(document.getElementById('grafikCSTerbaik'), {
+    type: 'bar',
+    data: {
+      labels: csTerbaikLabels,
+      datasets: datasetsCSBerjalan
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Jumlah Nilai 5 (Sangat Baik) per CS tiap Bulan'
+        }
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Jumlah Nilai 5 (Sangat Baik) per CS tiap Bulan'
-          }
-        },
-        scales: {
-          x: {
-            stacked: false // ⛔ hilangkan stacked agar tiap CS tampil terpisah
-          },
-          y: {
-            stacked: false, // ⛔ hilangkan stacked agar bar tidak menumpuk
-            beginAtZero: true,
-            ticks: {
-              precision: 0
-            }
-          }
+      scales: {
+        x: { stacked: false },
+        y: {
+          stacked: false,
+          beginAtZero: true,
+          ticks: { precision: 0 }
         }
       }
-    });
+    }
+  });
 
-
-    new Chart(document.getElementById('grafikLayanan'), {
-      type: 'bar',
-      data: {
-        labels: layananLabels,
-        datasets: [{
-          label: 'Jumlah Pengambil Layanan',
-          data: layananValues,
-          backgroundColor: '#8e44ad',
-          barThickness: 20
-        }]
+  new Chart(document.getElementById('grafikLayanan'), {
+    type: 'bar',
+    data: {
+      labels: layananLabels,
+      datasets: [{
+        label: 'Jumlah Pengambil Layanan',
+        data: layananValues,
+        backgroundColor: '#8e44ad',
+        barThickness: 20
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Jumlah Pengambil per Jenis Layanan'
+        }
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Jumlah Pengambil per Jenis Layanan'
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              precision: 0
-            }
-          }
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { precision: 0 }
         }
       }
-    });
-  </script>
+    }
+  });
+</script>
+
 </body>
 
 </html>

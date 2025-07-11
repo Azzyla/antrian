@@ -11,7 +11,6 @@ class AntrianController extends BaseController
         $model = new AntrianModel();
         $today = date('Y-m-d');
 
-        // Hitung jumlah antrian per kategori HARI INI (gunakan clone() untuk mencegah overwrite)
         $data['antrian'] = [
             'mahasiswa' => (clone $model)
                 ->where('kategori', 'mahasiswa')
@@ -38,44 +37,50 @@ class AntrianController extends BaseController
     {
         $allowed = ['mahasiswa', 'umum', 'dosen'];
 
-        // Validasi kategori
         if (!in_array($kategori, $allowed)) {
             return redirect()->back()->with('error', 'Kategori tidak valid.');
         }
 
-        // Ambil id_pengunjung dari session
         $idPengunjung = session()->get('idPengunjung');
-        if (!$idPengunjung) {
-            return redirect()->to('/pengunjung')->with('error', 'Silakan isi data pengunjung terlebih dahulu.');
+        $idLayanan = session()->get('id_Layanan'); // Ambil ID layanan dari session
+
+        if (!$idPengunjung || !$idLayanan) {
+            return redirect()->to('/pengunjung')->with('error', 'Silakan isi data pengunjung dan pilih layanan terlebih dahulu.');
         }
 
         $model = new AntrianModel();
         $today = date('Y-m-d');
 
-        // Hitung nomor antrian berdasarkan kategori & hari ini
-        $nomorAntrian = $model
+        $nomorUrut = $model
             ->where('kategori', $kategori)
             ->where('DATE(waktu_antrian)', $today)
             ->countAllResults() + 1;
 
-        // Simpan data antrian
+        // Mapping prefix berdasarkan kategori
+        $prefix = match ($kategori) {
+            'mahasiswa' => 'A',
+            'umum' => 'B',
+            'dosen' => 'C',
+            default => 'X',
+        };
+
+        $kodeAntrian = $prefix . str_pad($nomorUrut, 2, '0', STR_PAD_LEFT);
+
         $data = [
             'kategori'       => $kategori,
             'waktu_antrian'  => date('Y-m-d H:i:s'),
-            'nomor_antrian'  => $nomorAntrian,
+            'nomor_antrian'  => $nomorUrut,
             'status'         => 'menunggu',
             'id_pengunjung'  => $idPengunjung,
+            'id_layanan'     => $idLayanan, // Ini penting agar tidak NULL!
         ];
 
         if ($model->save($data)) {
-            // Set kategori aktif ke session (tetap boleh ambil lagi jika diperlukan)
             session()->set('kategoriAktif', $kategori);
-
-            // Flashdata untuk menonaktifkan tombol (hanya 1x ambil)
             session()->setFlashdata('kategoriDiambil', $kategori);
+            session()->setFlashdata('success', "Nomor antrian $kodeAntrian berhasil diambil untuk " . ucfirst($kategori));
 
-            return redirect()->to('/antrian')
-                ->with('success', "Nomor antrian $nomorAntrian berhasil diambil untuk " . ucfirst($kategori));
+            return redirect()->to('/antrian');
         } else {
             return redirect()->back()->with('error', 'Gagal menyimpan nomor antrian.');
         }
