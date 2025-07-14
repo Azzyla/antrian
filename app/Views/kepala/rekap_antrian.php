@@ -69,7 +69,6 @@
             <th>Kategori</th>
             <th>NIM / NIDN / NIK</th>
             <th>Layanan</th>
-            <th>Nomor Antrian</th>
             <th>Status</th>
             <th>CS</th>
             <th>Waktu Mulai</th>
