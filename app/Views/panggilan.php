@@ -185,9 +185,8 @@ $csDisplay = ucfirst($csName ?? 'Guest') . ' ' . $csRoleFormatted;
     else if (kategori === 'umum') huruf = 'C';
 
     const role = "<?= session('role') ?>";
-    let loket = '1';
-    if (role === 'cs2') loket = '2';
-    else if (role === 'cs3') loket = '3';
+let loket = role.replace('cs', ''); // cs1 → 1, cs4 → 4, dst.
+
 
     const nomorInt = nomor.replace(/^\D+/g, '');
     const audioPath = jenis === 'panggil'

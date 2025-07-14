@@ -96,28 +96,26 @@ $csDisplay = ucfirst($csName ?? 'Guest') . ' ' . $csRoleFormatted;
           </div>
         </form>
 
-        <!-- Tabel Rekap -->
-        <table class="table table-bordered table-striped mt-4">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Status Pengunjung</th>
-              <th>Jumlah Antrian</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php $no = 1; foreach ($rekap as $row): ?>
-              <tr>
-                <td><?= $no++ ?></td>
-                <td><?= esc(ucfirst($row->status_pengunjung)) ?></td>
-              <td><?= esc($row->jumlah) ?></td>
+    <!-- Tabel Rekap -->
+<table class="table table-bordered table-striped mt-4">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Status Pengunjung</th>
+      <th>Jumlah Antrian</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php $no = 1; foreach ($rekap as $row): ?>
+      <tr>
+        <td><?= $no++ ?></td>
+        <td><?= esc($row->pengguna) ?></td>
+        <td><?= esc($row->jumlah) ?></td>
+      </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
 
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   </body>

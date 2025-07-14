@@ -1,0 +1,432 @@
+DEBUG - 2025-07-13 17:19:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:20:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:20:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:20:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-07-13 17:20:18 --> ErrorException: Undefined property: stdClass::$status_pengunjung
+[Method: GET, Route: rekap]
+in APPPATH\Views\rekap.php on line 112.
+ 1 APPPATH\Views\rekap.php(112): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$status_pengunjung', 'C:\\laragon\\www\\antrian\\app\\Views\\rekap.php', 112)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\laragon\\www\\antrian\\app\\Views\\rekap.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('rekap', [], true)
+ 5 APPPATH\Controllers\RekapController.php(26): view('rekap', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RekapController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RekapController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(57): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+ERROR - 2025-07-13 17:28:07 --> mysqli_sql_exception: Unknown column 'pengunjung.status_pengunjung' in 'field list' in C:\laragon\www\antrian\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\antrian\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `pengunj...', 0)
+#1 C:\laragon\www\antrian\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pengunj...')
+#2 C:\laragon\www\antrian\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pengunj...')
+#3 C:\laragon\www\antrian\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pengunj...', Array, false)
+#4 C:\laragon\www\antrian\app\Models\AntrianModel.php(81): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\antrian\app\Controllers\RekapController.php(17): App\Models\AntrianModel->getRekap('2025-07-01', '2025-07-13', 'Semua')
+#6 C:\laragon\www\antrian\system\CodeIgniter.php(933): App\Controllers\RekapController->index()
+#7 C:\laragon\www\antrian\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RekapController))
+#8 C:\laragon\www\antrian\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\antrian\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\antrian\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\laragon\www\antrian\public\index.php(57): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 C:\laragon\www\antrian\system\rewrite.php(44): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2025-07-13 17:28:07 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'pengunjung.status_pengunjung' in 'field list'
+[Method: GET, Route: rekap]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pengunjung`.`status_pengunjung`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= :DATE(antrian.created_at):
+AND DATE(antrian.created_at) <= :DATE(antrian.created_at).1:
+GROUP BY `pengunjung`.`status_pengunjung`
+ORDER BY `pengunjung`.`status_pengunjung` ASC', [...], false)
+ 2 APPPATH\Models\AntrianModel.php(81): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\RekapController.php(17): App\Models\AntrianModel->getRekap('2025-07-01', '2025-07-13', 'Semua')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RekapController->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RekapController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(57): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+CRITICAL - 2025-07-13 17:28:07 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'pengunjung.status_pengunjung' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pengunjung`.`status_pengunjung`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengunjung`.`status_pengunjung`
+ORDER BY `pengunjung`.`status_pengunjung` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pengunjung`.`status_pengunjung`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengunjung`.`status_pengunjung`
+ORDER BY `pengunjung`.`status_pengunjung` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pengunjung`.`status_pengunjung`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= :DATE(antrian.created_at):
+AND DATE(antrian.created_at) <= :DATE(antrian.created_at).1:
+GROUP BY `pengunjung`.`status_pengunjung`
+ORDER BY `pengunjung`.`status_pengunjung` ASC', [...], false)
+ 4 APPPATH\Models\AntrianModel.php(81): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\RekapController.php(17): App\Models\AntrianModel->getRekap('2025-07-01', '2025-07-13', 'Semua')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RekapController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RekapController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(57): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+CRITICAL - 2025-07-13 17:28:07 --> [Caused by] mysqli_sql_exception: Unknown column 'pengunjung.status_pengunjung' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `pengunjung`.`status_pengunjung`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengunjung`.`status_pengunjung`
+ORDER BY `pengunjung`.`status_pengunjung` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pengunjung`.`status_pengunjung`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengunjung`.`status_pengunjung`
+ORDER BY `pengunjung`.`status_pengunjung` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pengunjung`.`status_pengunjung`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengunjung`.`status_pengunjung`
+ORDER BY `pengunjung`.`status_pengunjung` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pengunjung`.`status_pengunjung`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= :DATE(antrian.created_at):
+AND DATE(antrian.created_at) <= :DATE(antrian.created_at).1:
+GROUP BY `pengunjung`.`status_pengunjung`
+ORDER BY `pengunjung`.`status_pengunjung` ASC', [...], false)
+ 5 APPPATH\Models\AntrianModel.php(81): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\RekapController.php(17): App\Models\AntrianModel->getRekap('2025-07-01', '2025-07-13', 'Semua')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RekapController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RekapController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(57): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+ERROR - 2025-07-13 17:30:00 --> mysqli_sql_exception: Table 'antrian.pengguna' doesn't exist in C:\laragon\www\antrian\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\antrian\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `penggun...', 0)
+#1 C:\laragon\www\antrian\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `penggun...')
+#2 C:\laragon\www\antrian\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `penggun...')
+#3 C:\laragon\www\antrian\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `penggun...', Array, false)
+#4 C:\laragon\www\antrian\app\Models\AntrianModel.php(81): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\antrian\app\Controllers\RekapController.php(17): App\Models\AntrianModel->getRekap('2025-07-01', '2025-07-13', 'Semua')
+#6 C:\laragon\www\antrian\system\CodeIgniter.php(933): App\Controllers\RekapController->index()
+#7 C:\laragon\www\antrian\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RekapController))
+#8 C:\laragon\www\antrian\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\antrian\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\antrian\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\laragon\www\antrian\public\index.php(57): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 C:\laragon\www\antrian\system\rewrite.php(44): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2025-07-13 17:30:00 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'antrian.pengguna' doesn't exist
+[Method: GET, Route: rekap]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pengguna`.`status_pengguna`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengguna` ON `pengguna`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= :DATE(antrian.created_at):
+AND DATE(antrian.created_at) <= :DATE(antrian.created_at).1:
+GROUP BY `pengguna`.`status_pengguna`
+ORDER BY `pengguna`.`status_pengguna` ASC', [...], false)
+ 2 APPPATH\Models\AntrianModel.php(81): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\RekapController.php(17): App\Models\AntrianModel->getRekap('2025-07-01', '2025-07-13', 'Semua')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RekapController->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RekapController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(57): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+CRITICAL - 2025-07-13 17:30:00 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'antrian.pengguna' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pengguna`.`status_pengguna`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengguna` ON `pengguna`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengguna`.`status_pengguna`
+ORDER BY `pengguna`.`status_pengguna` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pengguna`.`status_pengguna`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengguna` ON `pengguna`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengguna`.`status_pengguna`
+ORDER BY `pengguna`.`status_pengguna` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pengguna`.`status_pengguna`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengguna` ON `pengguna`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= :DATE(antrian.created_at):
+AND DATE(antrian.created_at) <= :DATE(antrian.created_at).1:
+GROUP BY `pengguna`.`status_pengguna`
+ORDER BY `pengguna`.`status_pengguna` ASC', [...], false)
+ 4 APPPATH\Models\AntrianModel.php(81): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\RekapController.php(17): App\Models\AntrianModel->getRekap('2025-07-01', '2025-07-13', 'Semua')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RekapController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RekapController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(57): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+CRITICAL - 2025-07-13 17:30:00 --> [Caused by] mysqli_sql_exception: Table 'antrian.pengguna' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `pengguna`.`status_pengguna`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengguna` ON `pengguna`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengguna`.`status_pengguna`
+ORDER BY `pengguna`.`status_pengguna` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pengguna`.`status_pengguna`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengguna` ON `pengguna`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengguna`.`status_pengguna`
+ORDER BY `pengguna`.`status_pengguna` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pengguna`.`status_pengguna`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengguna` ON `pengguna`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengguna`.`status_pengguna`
+ORDER BY `pengguna`.`status_pengguna` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pengguna`.`status_pengguna`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengguna` ON `pengguna`.`id` = `antrian`.`id_pengunjung`
+WHERE DATE(antrian.created_at) >= :DATE(antrian.created_at):
+AND DATE(antrian.created_at) <= :DATE(antrian.created_at).1:
+GROUP BY `pengguna`.`status_pengguna`
+ORDER BY `pengguna`.`status_pengguna` ASC', [...], false)
+ 5 APPPATH\Models\AntrianModel.php(81): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\RekapController.php(17): App\Models\AntrianModel->getRekap('2025-07-01', '2025-07-13', 'Semua')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RekapController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RekapController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(57): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-13 17:31:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:31:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:31:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:31:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:31:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:32:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:32:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-07-13 17:34:25 --> mysqli_sql_exception: Unknown column 'layanan.id' in 'on clause' in C:\laragon\www\antrian\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\antrian\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `pengunj...', 0)
+#1 C:\laragon\www\antrian\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pengunj...')
+#2 C:\laragon\www\antrian\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pengunj...')
+#3 C:\laragon\www\antrian\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pengunj...', Array, false)
+#4 C:\laragon\www\antrian\app\Models\AntrianModel.php(82): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\antrian\app\Controllers\RekapController.php(17): App\Models\AntrianModel->getRekap('2025-07-01', '2025-07-13', 'Semua')
+#6 C:\laragon\www\antrian\system\CodeIgniter.php(933): App\Controllers\RekapController->index()
+#7 C:\laragon\www\antrian\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RekapController))
+#8 C:\laragon\www\antrian\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\antrian\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\antrian\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\laragon\www\antrian\public\index.php(57): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 C:\laragon\www\antrian\system\rewrite.php(44): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2025-07-13 17:34:25 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'layanan.id' in 'on clause'
+[Method: GET, Route: rekap]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pengunjung`.`pengguna`, `layanan`.`layanan`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+LEFT JOIN `layanan` ON `layanan`.`id` = `antrian`.`id_layanan`
+WHERE DATE(antrian.created_at) >= :DATE(antrian.created_at):
+AND DATE(antrian.created_at) <= :DATE(antrian.created_at).1:
+GROUP BY `pengunjung`.`pengguna`, `layanan`.`layanan`
+ORDER BY `pengunjung`.`pengguna` ASC', [...], false)
+ 2 APPPATH\Models\AntrianModel.php(82): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\RekapController.php(17): App\Models\AntrianModel->getRekap('2025-07-01', '2025-07-13', 'Semua')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RekapController->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RekapController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(57): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+CRITICAL - 2025-07-13 17:34:25 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'layanan.id' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pengunjung`.`pengguna`, `layanan`.`layanan`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+LEFT JOIN `layanan` ON `layanan`.`id` = `antrian`.`id_layanan`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengunjung`.`pengguna`, `layanan`.`layanan`
+ORDER BY `pengunjung`.`pengguna` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pengunjung`.`pengguna`, `layanan`.`layanan`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+LEFT JOIN `layanan` ON `layanan`.`id` = `antrian`.`id_layanan`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengunjung`.`pengguna`, `layanan`.`layanan`
+ORDER BY `pengunjung`.`pengguna` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pengunjung`.`pengguna`, `layanan`.`layanan`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+LEFT JOIN `layanan` ON `layanan`.`id` = `antrian`.`id_layanan`
+WHERE DATE(antrian.created_at) >= :DATE(antrian.created_at):
+AND DATE(antrian.created_at) <= :DATE(antrian.created_at).1:
+GROUP BY `pengunjung`.`pengguna`, `layanan`.`layanan`
+ORDER BY `pengunjung`.`pengguna` ASC', [...], false)
+ 4 APPPATH\Models\AntrianModel.php(82): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\RekapController.php(17): App\Models\AntrianModel->getRekap('2025-07-01', '2025-07-13', 'Semua')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RekapController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RekapController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(57): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+CRITICAL - 2025-07-13 17:34:25 --> [Caused by] mysqli_sql_exception: Unknown column 'layanan.id' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `pengunjung`.`pengguna`, `layanan`.`layanan`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+LEFT JOIN `layanan` ON `layanan`.`id` = `antrian`.`id_layanan`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengunjung`.`pengguna`, `layanan`.`layanan`
+ORDER BY `pengunjung`.`pengguna` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `pengunjung`.`pengguna`, `layanan`.`layanan`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+LEFT JOIN `layanan` ON `layanan`.`id` = `antrian`.`id_layanan`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengunjung`.`pengguna`, `layanan`.`layanan`
+ORDER BY `pengunjung`.`pengguna` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `pengunjung`.`pengguna`, `layanan`.`layanan`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+LEFT JOIN `layanan` ON `layanan`.`id` = `antrian`.`id_layanan`
+WHERE DATE(antrian.created_at) >= \'2025-07-01\'
+AND DATE(antrian.created_at) <= \'2025-07-13\'
+GROUP BY `pengunjung`.`pengguna`, `layanan`.`layanan`
+ORDER BY `pengunjung`.`pengguna` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `pengunjung`.`pengguna`, `layanan`.`layanan`, COUNT(*) as jumlah
+FROM `antrian`
+LEFT JOIN `pengunjung` ON `pengunjung`.`id` = `antrian`.`id_pengunjung`
+LEFT JOIN `layanan` ON `layanan`.`id` = `antrian`.`id_layanan`
+WHERE DATE(antrian.created_at) >= :DATE(antrian.created_at):
+AND DATE(antrian.created_at) <= :DATE(antrian.created_at).1:
+GROUP BY `pengunjung`.`pengguna`, `layanan`.`layanan`
+ORDER BY `pengunjung`.`pengguna` ASC', [...], false)
+ 5 APPPATH\Models\AntrianModel.php(82): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\RekapController.php(17): App\Models\AntrianModel->getRekap('2025-07-01', '2025-07-13', 'Semua')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\RekapController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\RekapController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(57): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\antrian\\public\\index.php')
+DEBUG - 2025-07-13 17:34:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:35:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:37:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:38:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:38:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:38:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:38:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:38:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:39:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:39:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:39:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:39:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:39:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:39:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:39:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:39:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:39:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:39:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:39:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:39:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:39:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:41:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:41:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:41:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:41:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:42:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:42:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:45:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:45:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:45:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:45:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:45:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:45:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:46:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:54:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:54:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:55:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:55:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:55:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:55:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:56:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:56:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:56:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:56:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:56:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:56:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:57:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:57:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:57:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:58:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:58:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:58:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:58:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:58:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:59:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:59:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:59:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-07-13 17:59:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

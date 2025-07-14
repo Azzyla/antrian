@@ -47,10 +47,10 @@
 
         <select name="cs" required>
             <option value="">-- Pilih CS --</option>
-            <option value="CS Riska">Riska</option>
-            <option value="CS Dayu">Dayu</option>
-            <option value="CS Robi">Robi</option>
-            <option value="CS Dewi">Dewi</option>
+            <option value="CS Riska">Counter 4 Riska</option>
+            <option value="CS Robi">Counter 3 Robi</option>
+            <option value="CS Dayu">Couter 2 Dayu
+            <option value="CS Dewi"> Counter 1 Dewi</option>
         </select>
 
         <label>Penilaian Layanan</label>
