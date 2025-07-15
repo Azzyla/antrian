@@ -90,7 +90,8 @@
           <option value="skripsi" data-kategori="mahasiswa">TA / PA / Thesis</option>
           <option value="wisuda" data-kategori="mahasiswa">Wisuda</option>
           <option value="pembayaran" data-kategori="mahasiswa">Pembayaran Uang Kuliah</option>
-
+          <option value="pembayaran" data-kategori="mahasiswa">Surat Aktif Kuliah</option>
+          <option value="pembayaran" data-kategori="mahasiswa">Kartu Ujian</option>
           <!-- Dosen -->
           <option value="perkuliahan" data-kategori="dosen">Perkuliahan</option>
           <option value="kepegawaian" data-kategori="dosen">Kepegawaian</option>
