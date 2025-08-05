@@ -49,22 +49,26 @@
                 label.textContent = "NIM";
                 input.name = "nim";
                 input.placeholder = "Masukkan NIM";
+                input.maxLength = 10;
                 input.required = true;
             } else if (pengguna === "dosen") {
                 label.textContent = "NIDN";
                 input.name = "nidn";
                 input.placeholder = "Masukkan NIDN";
+                input.maxLength = 10;
                 input.required = true;
             } else if (pengguna === "umum") {
                 label.textContent = "NIK";
                 input.name = "nik";
                 input.placeholder = "Masukkan NIK";
+                input.maxLength = 16;
                 input.required = true;
             } else {
                 label.textContent = "Identitas";
                 input.name = "identitas";
                 input.placeholder = "Masukkan Identitas";
                 input.required = false;
+                input.maxLength = "";
             }
 
             input.value = '';
@@ -77,16 +81,33 @@
             prodiDiv.style.display = (pengguna === "mahasiswa" || pengguna === "dosen") ? "block" : "none";
 
             const prodiSelect = document.getElementById("prodi");
-            if (pengguna === "mahasiswa" || pengguna === "dosen") {
-                prodiSelect.required = true;
-            } else {
-                prodiSelect.required = false;
+            prodiSelect.required = (pengguna === "mahasiswa" || pengguna === "dosen");
+            if (!prodiSelect.required) {
                 prodiSelect.selectedIndex = 0;
             }
         }
 
         document.addEventListener("DOMContentLoaded", function () {
             toggleProdi();
+
+            // Validasi panjang input saat submit form
+            document.querySelector("form").addEventListener("submit", function(e) {
+                const pengguna = document.getElementById("pengguna").value;
+                const identitas = document.getElementById("input-identitas").value.trim();
+
+                let expectedLength = 0;
+                if (pengguna === "mahasiswa" || pengguna === "dosen") {
+                    expectedLength = 10;
+                } else if (pengguna === "umum") {
+                    expectedLength = 16;
+                }
+
+                if (expectedLength > 0 && identitas.length !== expectedLength) {
+                    alert(`${pengguna.charAt(0).toUpperCase() + pengguna.slice(1)} harus mengisi ${expectedLength} digit.`);
+                    e.preventDefault();
+                    return false;
+                }
+            });
         });
     </script>
 </head>
@@ -112,7 +133,7 @@
 
         <div class="mb-3">
             <label id="label-identitas" for="input-identitas" class="form-label">Identitas</label>
-            <input type="text" class="form-control" id="input-identitas" name="nik" placeholder="Masukkan Identitas" required>
+            <input type="text" class="form-control" id="input-identitas" name="identitas" placeholder="Masukkan Identitas" required>
         </div>
 
         <div class="mb-3" id="prodi-group" style="display: none;">

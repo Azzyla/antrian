@@ -103,6 +103,7 @@ $validation = session()->getFlashdata('validation');
                             <select class="form-select <?= $validation && $validation->hasError('role') ? 'is-invalid' : '' ?>"
                                     id="role" name="role" required>
                                 <option value="" disabled <?= old('role') ? '' : 'selected' ?>>Pilih Role</option>
+                                <option value="KEPALA" <?= old('role') == 'KEPALA' ? 'selected' : '' ?>>Kepala</option>
                                 <option value="cs1" <?= old('role') == 'cs1' ? 'selected' : '' ?>>CS 1</option>
                                 <option value="cs2" <?= old('role') == 'cs2' ? 'selected' : '' ?>>CS 2</option>
                                 <option value="cs3" <?= old('role') == 'cs3' ? 'selected' : '' ?>>CS 3</option>

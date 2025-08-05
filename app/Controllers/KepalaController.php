@@ -141,74 +141,151 @@ class KepalaController extends Controller
         ]);
     }
 
-    public function rekap_kepuasan()
-    {
-        if (!$this->isKepala()) {
-            return redirect()->to('/kepala/login');
-        }
-
-        $start = $this->request->getGet('start');
-        $end   = $this->request->getGet('end');
-        $builder = $this->db->table('kepuasan_layanan');
-
-        if ($start && $end) {
-            try {
-                $builder->where('DATE(created_at) >=', date('Y-m-d', strtotime($start)))
-                        ->where('DATE(created_at) <=', date('Y-m-d', strtotime($end)));
-            } catch (\Exception $e) {
-                return redirect()->back()->with('error', 'Format tanggal tidak valid.');
-            }
-        }
-
-        $builder->orderBy('created_at', 'DESC');
-        $data = $builder->get()->getResultArray();
-
-        return view('kepala/rekap_kepuasan', [
-            'kepuasan' => $data,
-            'start'    => $start,
-            'end'      => $end
-        ]);
+public function rekap_kepuasan()
+{
+    // Hanya bisa diakses oleh user kepala
+    if (!$this->isKepala()) {
+        return redirect()->to('/kepala/login');
     }
+
+    // Ambil input filter
+    $start = $this->request->getGet('start');
+    $end   = $this->request->getGet('end');
+    $bulan = $this->request->getGet('bulan');
+    $cs    = $this->request->getGet('cs');
+    $limit = $this->request->getGet('limit') ?? 25;
+
+    // Build query dengan JOIN ke tabel antrian dan cs_plt
+    $builder = $this->db->table('kepuasan_layanan AS k');
+    $builder->select('
+        k.id,
+        k.id_antrian,
+        k.nim,
+        k.penilaian,
+        k.saran,
+        k.created_at,
+        k.updated_at,
+        a.waktu_mulai,
+        a.waktu_selesai,
+        cs_plt.nama AS nama_cs
+    ');
+    $builder->join('antrian AS a', 'k.id_antrian = a.id', 'left');
+    $builder->join('cs_plt', 'a.id_cs_plt = cs_plt.id_cs_plt', 'left');
+
+    // Filter berdasarkan tanggal jika diisi
+    if (!empty($start) && !empty($end)) {
+        $builder->where('DATE(k.created_at) >=', $start)
+                ->where('DATE(k.created_at) <=', $end);
+    }
+
+    // Filter berdasarkan bulan jika diisi
+    if (!empty($bulan)) {
+        $builder->where('MONTH(k.created_at)', (int)$bulan);
+    }
+
+    // Filter berdasarkan nama CS jika diisi
+    if (!empty($cs)) {
+        $builder->where('cs_plt.nama', $cs);
+    }
+
+    // Urutkan dan batasi data
+    $builder->orderBy('k.created_at', 'DESC');
+    $builder->limit((int)$limit);
+
+    // Ambil hasil data
+    $data = $builder->get()->getResultArray();
+
+    // Ambil daftar nama CS unik dari cs_plt
+    $listCS = $this->db->table('cs_plt')
+        ->select('nama')
+        ->distinct()
+        ->orderBy('nama', 'ASC')
+        ->get()
+        ->getResultArray();
+
+    // Kirim data ke view
+    return view('kepala/rekap_kepuasan', [
+        'kepuasan' => $data,
+        'start'    => $start,
+        'end'      => $end,
+        'bulan'    => $bulan,
+        'cs'       => $cs,
+        'limit'    => $limit,
+        'listCS'   => $listCS
+    ]);
+}
+
 
     public function rekap_antrian()
-    {
-        if (!$this->isKepala()) {
-            return redirect()->to('/kepala/login');
-        }
-
-        $start     = $this->request->getGet('start');
-        $end       = $this->request->getGet('end');
-        $perPage   = (int)($this->request->getGet('perPage') ?? 10);
-        $page      = (int)($this->request->getVar('page') ?? 1);
-
-        $builder = $this->antrianModel
-            ->select('antrian.*, users.username AS nama_cs, pengunjung.pengguna, pengunjung.nim, pengunjung.nidn, pengunjung.nik, layanan.layanan AS nama_layanan')
-            ->join('users', 'users.id = antrian.id_cs_plt', 'left')
-            ->join('pengunjung', 'pengunjung.id = antrian.id_pengunjung', 'left')
-            ->join('layanan', 'layanan.id_layanan = antrian.id_layanan', 'left');
-
-        if ($start && $end) {
-            try {
-                $builder->where('DATE(antrian.created_at) >=', date('Y-m-d', strtotime($start)))
-                        ->where('DATE(antrian.created_at) <=', date('Y-m-d', strtotime($end)));
-            } catch (\Exception $e) {
-                return redirect()->back()->with('error', 'Format tanggal tidak valid.');
-            }
-        }
-
-        $laporan = $builder->orderBy('antrian.created_at', 'DESC')
-            ->paginate($perPage, 'default', $page);
-
-        return view('kepala/rekap_antrian', [
-            'laporan'     => $laporan,
-            'pager'       => $this->antrianModel->pager,
-            'perPage'     => $perPage,
-            'currentPage' => $page,
-            'totalData'   => $this->antrianModel->countAllResults(false),
-            'start'       => $start,
-            'end'         => $end
-        ]);
+{
+    if (!$this->isKepala()) {
+        return redirect()->to('/kepala/login');
     }
+
+    // Ambil input dari query string
+    $start     = $this->request->getGet('start');
+    $end       = $this->request->getGet('end');
+    $bulan     = $this->request->getGet('bulan');
+    $cs        = $this->request->getGet('cs');
+    $perPage   = (int)($this->request->getGet('perPage') ?? 10);
+    $page      = (int)($this->request->getGet('page') ?? 1);
+
+    // Query builder
+    $builder = $this->antrianModel
+        ->select('antrian.*, users.username AS nama_cs, pengunjung.pengguna AS kategori, pengunjung.nim, pengunjung.nidn, pengunjung.nik, layanan.layanan AS nama_layanan')
+        ->join('users', 'users.id = antrian.id_cs_plt', 'left')
+        ->join('pengunjung', 'pengunjung.id = antrian.id_pengunjung', 'left')
+        ->join('layanan', 'layanan.id_layanan = antrian.id_layanan', 'left');
+
+    // Filter tanggal jika diisi
+    if ($start && $end) {
+        try {
+            $builder->where('DATE(antrian.created_at) >=', date('Y-m-d', strtotime($start)))
+                    ->where('DATE(antrian.created_at) <=', date('Y-m-d', strtotime($end)));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Format tanggal tidak valid.');
+        }
+    }
+
+    // Filter berdasarkan bulan (opsional)
+    if (!empty($bulan)) {
+        $builder->where('MONTH(antrian.created_at)', $bulan);
+    }
+
+    // Filter berdasarkan CS (opsional)
+    if (!empty($cs)) {
+        $builder->where('users.username', $cs);
+    }
+
+    // Ambil data dengan pagination
+    $laporan = $builder->orderBy('antrian.created_at', 'DESC')
+                       ->paginate($perPage, 'default', $page);
+
+    // Hitung durasi per data
+    foreach ($laporan as &$row) {
+        if (!empty($row['waktu_mulai']) && !empty($row['waktu_selesai'])) {
+            $mulai   = new \DateTime($row['waktu_mulai']);
+            $selesai = new \DateTime($row['waktu_selesai']);
+            $durasi  = $selesai->getTimestamp() - $mulai->getTimestamp();
+            $row['durasi'] = round($durasi / 60) . ' menit';
+        } else {
+            $row['durasi'] = '-';
+        }
+    }
+
+    // Kirim ke view
+    return view('kepala/rekap_antrian', [
+        'laporan'     => $laporan,
+        'pager'       => $this->antrianModel->pager,
+        'perPage'     => $perPage,
+        'currentPage' => $page,
+        'totalData'   => $this->antrianModel->pager->getTotal(),
+        'start'       => $start,
+        'end'         => $end,
+        'bulan'       => $bulan,
+        'cs'          => $cs
+    ]);
+}
 
     public function kelola_user()
     {
@@ -233,7 +310,7 @@ class KepalaController extends Controller
         $rules = [
             'username' => 'required|min_length[3]|is_unique[users.username]',
             'password' => 'required|min_length[6]',
-            'role'     => 'required|in_list[cs1,cs2,cs3,cs4]'
+            'role'     => 'required|in_list[KEPALA,cs1,cs2,cs3,cs4]'
         ];
 
         if (!$this->validate($rules)) {

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\AntrianModel;
 use CodeIgniter\I18n\Time;
+use Config\Database;
 
 class PanggilanController extends BaseController
 {
@@ -43,15 +44,13 @@ class PanggilanController extends BaseController
             ->orderBy('created_at', 'ASC')
             ->findAll();
 
-        $db = \Config\Database::connect();
+        $db = Database::connect();
         $sudahDipanggilQuery = $db->table('antrian')
             ->select('antrian.*, users.role as cs_role, users.username as cs_name')
             ->join('users', 'users.id = antrian.id_cs_plt', 'left')
             ->where('antrian.created_at >=', $todayStart)
             ->where('antrian.created_at <=', $todayEnd)
             ->whereIn('antrian.status', ['dipanggil', 'dilayani', 'selesai']);
-
-
 
         if (str_starts_with($sessionRole, 'cs')) {
             $sudahDipanggilQuery->where('users.role', $sessionRole);
@@ -86,7 +85,6 @@ class PanggilanController extends BaseController
 
     public function ulang($id)
     {
-        // Tidak perlu update status ulang
         return redirect()->to('/panggilan');
     }
 
@@ -95,13 +93,25 @@ class PanggilanController extends BaseController
         $data = $this->antrianModel->find($id);
         if (!$data) return redirect()->back()->with('error', 'Data tidak ditemukan');
 
+        $userId = session()->get('user_id');
+
+        // Cek apakah CS ini sudah melayani antrian lain
+        $sedangMelayani = $this->antrianModel
+            ->where('id_cs_plt', $userId)
+            ->where('status', 'dilayani')
+            ->first();
+
+        if ($sedangMelayani) {
+            return redirect()->back()->with('error', 'Selesaikan layanan sebelumnya terlebih dahulu.');
+        }
+
         $this->antrianModel->update($id, [
             'status' => 'dilayani',
             'waktu_mulai' => Time::now('Asia/Jakarta'),
-            'id_cs_plt' => session()->get('user_id')
+            'id_cs_plt' => $userId
         ]);
 
-        return redirect()->to('/panggilan');
+        return redirect()->to('/panggilan')->with('success', 'Layanan dimulai.');
     }
 
     public function selesaiLayanan($id)
@@ -119,6 +129,6 @@ class PanggilanController extends BaseController
         }
 
         $this->antrianModel->update($id, $update);
-        return redirect()->to('/panggilan');
+        return redirect()->to('/panggilan')->with('success', 'Layanan diselesaikan.');
     }
 }

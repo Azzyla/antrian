@@ -29,6 +29,7 @@ class AntrianController extends BaseController
         ];
 
         $data['kategoriAktif'] = session()->get('kategoriAktif');
+        
 
         return view('antrian', $data);
     }

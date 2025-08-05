@@ -1,5 +1,4 @@
 <?php
-// Fungsi untuk mengubah angka penilaian menjadi label
 function penilaianLabel($nilai)
 {
     switch ((int)$nilai) {
@@ -19,65 +18,62 @@ function penilaianLabel($nilai)
     <meta charset="UTF-8">
     <title>Rekap Kepuasan Layanan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .pagination {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .page-btn {
-            padding: 6px 12px;
-            margin: 2px;
-            border: none;
-            background-color: #f0f0f0;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        .page-btn:hover {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .page-btn.active {
-            background-color: #007bff;
-            color: white;
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
 <div class="container mt-5">
     <h2 class="mb-4 text-primary fw-bold">Rekap Kepuasan Layanan</h2>
 
-    <!-- Tombol kembali -->
     <a href="<?= base_url('/kepala/dashboard') ?>" class="btn btn-secondary mb-3">Kembali ke Dashboard</a>
 
-    <!-- Form filter tanggal dan jumlah entri -->
+    <!-- Form Filter -->
     <form method="get" class="row g-3 align-items-end mb-3">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label for="start" class="form-label">Dari Tanggal</label>
             <input type="date" name="start" id="start" class="form-control" value="<?= esc($start ?? '') ?>">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label for="end" class="form-label">Sampai Tanggal</label>
             <input type="date" name="end" id="end" class="form-control" value="<?= esc($end ?? '') ?>">
         </div>
+        <div class="col-md-2">
+            <label for="bulan" class="form-label">Bulan</label>
+            <select name="bulan" id="bulan" class="form-select">
+                <option value="">Semua</option>
+                <?php for ($i = 1; $i <= 12; $i++): ?>
+                    <option value="<?= $i ?>" <?= (isset($bulan) && $bulan == $i) ? 'selected' : '' ?>>
+                        <?= date('F', mktime(0, 0, 0, $i, 1)) ?>
+                    </option>
+                <?php endfor; ?>
+            </select>
+        </div>
         <div class="col-md-3">
+            <label for="cs" class="form-label">Customer Service</label>
+            <select name="cs" id="cs" class="form-select">
+                <option value="">Semua</option>
+                <?php if (!empty($listCS)) : ?>
+                    <?php foreach ($listCS as $csItem): ?>
+                <option value="<?= esc($csItem['nama']) ?>" <?= (isset($cs) && $cs == $csItem['nama']) ? 'selected' : '' ?>>
+                 <?= esc($csItem['nama']) ?>
+            </option>
+            <?php endforeach; ?>
+
+                <?php endif; ?>
+            </select>
+        </div>
+        <div class="col-md-2">
             <label for="limitSelect" class="form-label">Jumlah Data</label>
-            <select name="limit" id="limitSelect" class="form-select form-select-lg" onchange="changeLimit()">
+            <select name="limit" id="limitSelect" class="form-select">
                 <?php foreach ([10, 25, 50, 100] as $opt): ?>
-                    <option value="<?= $opt ?>" <?= isset($_GET['limit']) && $_GET['limit'] == $opt ? 'selected' : '' ?>><?= $opt ?></option>
+                    <option value="<?= $opt ?>" <?= (isset($limit) && $limit == $opt) ? 'selected' : '' ?>><?= $opt ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
-        <div class="col-md-3 d-flex gap-2">
-            <button type="submit" class="btn btn-primary">Tampilkan</button>
-            <a href="<?= base_url('/kepala/rekap-kepuasan') ?>" class="btn btn-secondary">Reset</a>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-primary w-100">Filter</button>
         </div>
     </form>
 
-    <!-- Tabel -->
+    <!-- Tabel Rekap -->
     <table class="table table-bordered table-striped" id="rekapTable">
         <thead class="table-dark text-center">
         <tr>
@@ -85,79 +81,50 @@ function penilaianLabel($nilai)
             <th>NIM</th>
             <th>CS</th>
             <th>Penilaian</th>
-            <th>Saran</th>
             <th>Waktu Isi</th>
+            <th>Durasi (menit)</th>
         </tr>
         </thead>
         <tbody>
         <?php if (!empty($kepuasan)): ?>
             <?php $no = 1; foreach ($kepuasan as $row): ?>
                 <tr>
-                    <td><?= $no++ ?></td>
-                    <td><?= esc($row['nim']) ?></td>
-                    <td><?= esc($row['cs']) ?></td>
-                    <td><?= esc($row['penilaian']) ?>/5 - <?= penilaianLabel($row['penilaian']) ?></td>
-                    <td><?= esc($row['saran']) ?></td>
-                    <td><?= esc($row['created_at']) ?></td>
+                    <td class="text-center"><?= $no++ ?></td>
+                    <td><?= esc($row['nim'] ?? '-') ?></td>
+                    <td><?= esc($row['nama_cs'] ?? '-') ?></td>
+
+                    <td>
+                        <?= esc($row['penilaian'] ?? '-') ?>/5 -
+                        <?= penilaianLabel($row['penilaian'] ?? 0) ?>
+                    </td>
+                   
+                    <td>
+                        <?= !empty($row['created_at']) ? date('d-m-Y H:i', strtotime($row['created_at'])) : '-' ?>
+                    </td>
+                    <td>
+                        <?php
+                        if (!empty($row['waktu_mulai']) && !empty($row['waktu_selesai'])) {
+                            try {
+                                $mulai = new \DateTime($row['waktu_mulai']);
+                                $selesai = new \DateTime($row['waktu_selesai']);
+                                echo round(($selesai->getTimestamp() - $mulai->getTimestamp()) / 60) . ' menit';
+                            } catch (\Exception $e) {
+                                echo '-';
+                            }
+                        } else {
+                            echo '-';
+                        }
+                        ?>
+                    </td>
                 </tr>
-            <?php endforeach ?>
+            <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="6" class="text-center">Tidak ada data untuk rentang tanggal ini.</td>
+                <td colspan="7" class="text-center">Tidak ada data untuk filter yang dipilih.</td>
             </tr>
         <?php endif ?>
         </tbody>
     </table>
-
-    <!-- Pagination -->
-    <div id="pagination" class="pagination"></div>
 </div>
-
-<!-- Script Pagination -->
-<script>
-    const table = document.getElementById("rekapTable");
-    const rows = table.querySelector("tbody").getElementsByTagName("tr");
-    const limitSelect = document.getElementById("limitSelect");
-    const pagination = document.getElementById("pagination");
-
-    let currentPage = 1;
-    let rowsPerPage = parseInt(limitSelect.value);
-
-    function displayTable(page) {
-        const start = (page - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-
-        for (let i = 0; i < rows.length; i++) {
-            rows[i].style.display = (i >= start && i < end) ? "" : "none";
-        }
-
-        displayPagination();
-    }
-
-    function displayPagination() {
-        pagination.innerHTML = "";
-        const totalPages = Math.ceil(rows.length / rowsPerPage);
-
-        for (let i = 1; i <= totalPages; i++) {
-            const btn = document.createElement("button");
-            btn.innerText = i;
-            btn.className = "page-btn" + (i === currentPage ? " active" : "");
-            btn.onclick = function () {
-                currentPage = i;
-                displayTable(currentPage);
-            };
-            pagination.appendChild(btn);
-        }
-    }
-
-    function changeLimit() {
-        document.querySelector("form").submit(); // langsung submit form untuk terapkan limit
-    }
-
-    // Inisialisasi saat halaman dimuat
-    window.onload = function () {
-        displayTable(currentPage);
-    };
-</script>
 </body>
 </html>
